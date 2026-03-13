@@ -38,6 +38,7 @@ jobs:
             any::cowplot
             any::kableExtra
             any::scales
+            any::glue
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
