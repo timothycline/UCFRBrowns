@@ -5,7 +5,7 @@ project:
 website:
   title: "UCF Brown Trout Power Analysis"
   page-navigation: true
-  repo-url: https://github.com/your-username/CFBrown
+  repo-url: https://github.com/timothycline/UCFRBrowns
   repo-actions: [issue]
 
 format:
