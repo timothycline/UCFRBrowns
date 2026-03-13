@@ -1,0 +1,171 @@
+model {
+
+  # ======================================================
+  # Multi-state survival model: Upper Clark Fork Brown Trout
+  #
+  # States:
+  #   1 = Alive in tributary (tribs 1, 2, 3 lumped)
+  #   2 = Alive in mainstem Warm Springs - Gembeck Rd    (primary study area)
+  #   3 = Alive in mainstem Gembeck Rd - Sager Ln        (secondary study area)
+  #   4 = Emigrated downstream past Sager Ln             (absorbing)
+  #   5 = Emigrated upstream past Warm Springs           (absorbing)
+  #   6 = Dead                                           (absorbing)
+  #
+  # All antenna detection is TRANSITION-based (fires when a fish crosses
+  # a specific antenna boundary, not just when it is nearby):
+  #
+  #   Trib antennas  (p_trib): 1 <-> 2  crossing (either direction)
+  #   Gembeck antenna (p_gem): 2  ->  3  crossing (downstream only)
+  #   Warm Springs ant (p_ws): 2  ->  5  crossing (upstream only)
+  #   Sager Ln antenna (p_sag): 3  ->  4  crossing (downstream only)
+  #
+  # Active sampling:
+  #   Electrofishing (p_efish): PROXIMITY-based, detects fish in state 2
+  #
+  # Detection probability priors:
+  #   Logit-normal with hyperparameters passed as data. This allows toggling
+  #   between informative priors (from pilot data) and vague priors simply
+  #   by changing the data passed to the model — no model edits needed.
+  #
+  #   Informative: mu = qlogis(empirical estimate), sd = 0.3 (logit scale)
+  #   Vague:       mu = 0,                          sd = 5.0 (logit scale)
+  # ======================================================
+
+  # ---- Priors: survival ----
+  phi_trib  ~ dbeta(1, 1)   # per-occasion survival in tributaries
+  phi_main  ~ dbeta(1, 1)   # per-occasion survival in mainstem WS-Gembeck
+  phi_lower ~ dbeta(1, 1)   # per-occasion survival in mainstem Gembeck-Sager
+
+  # ---- Priors: movement ----
+
+  # From trib (state 1): probability of emigrating to mainstem per occasion
+  psi_trib_out ~ dbeta(1, 1)
+
+  # From mainstem WS-Gembeck (state 2):
+  #   psi_main_move = overall probability of leaving state 2 per occasion
+  #   dir_main[1:3] ~ Dirichlet = directional split of movement
+  #     dir_main[1] -> back to trib    (state 2 -> 1)
+  #     dir_main[2] -> downstream      (state 2 -> 3, Gembeck antenna fires)
+  #     dir_main[3] -> upstream        (state 2 -> 5, WS antenna fires)
+  psi_main_move  ~ dbeta(1, 1)
+  dir_main[1:3] ~ ddirch(dir_alpha[1:3])
+
+  psi_main_back <- psi_main_move * dir_main[1]
+  psi_main_down <- psi_main_move * dir_main[2]
+  psi_main_up   <- psi_main_move * dir_main[3]
+
+  # From mainstem Gembeck-Sager (state 3):
+  #   psi_sager = probability of passing Sager Ln per occasion
+  #   (Sager antenna fires on this transition)
+  psi_sager ~ dbeta(1, 1)
+
+  # ---- Priors: detection (logit-normal, hyperparameters supplied as data) ----
+  # Hyperparameter names: p_X_mu (mean on logit scale), p_X_sd (SD on logit scale)
+  # Informative: center on pilot estimates, sd = 0.3 (logit scale)
+  # Vague:       mu = 0, sd = 5 (logit scale, ~flat on probability scale)
+
+  p_trib_logit ~ dnorm(p_trib_mu,  pow(p_trib_sd,  -2))
+  p_gem_logit  ~ dnorm(p_gem_mu,   pow(p_gem_sd,   -2))
+  p_ws_logit   ~ dnorm(p_ws_mu,    pow(p_ws_sd,    -2))
+  p_sag_logit  ~ dnorm(p_sag_mu,   pow(p_sag_sd,   -2))
+  p_efish_logit ~ dnorm(p_efish_mu, pow(p_efish_sd, -2))
+
+  p_trib  <- ilogit(p_trib_logit)
+  p_gem   <- ilogit(p_gem_logit)
+  p_ws    <- ilogit(p_ws_logit)
+  p_sag   <- ilogit(p_sag_logit)
+  p_efish <- ilogit(p_efish_logit)
+
+  # ======================================================
+  # Transition matrix  tr[current_state, next_state]
+  # ======================================================
+
+  # From state 1 (alive in tributary)
+  tr[1, 1] <- phi_trib * (1 - psi_trib_out)
+  tr[1, 2] <- phi_trib * psi_trib_out
+  tr[1, 3] <- 0
+  tr[1, 4] <- 0
+  tr[1, 5] <- 0
+  tr[1, 6] <- 1 - phi_trib
+
+  # From state 2 (alive in mainstem WS-Gembeck)
+  tr[2, 1] <- phi_main * psi_main_back
+  tr[2, 2] <- phi_main * (1 - psi_main_back - psi_main_down - psi_main_up)
+  tr[2, 3] <- phi_main * psi_main_down
+  tr[2, 4] <- 0
+  tr[2, 5] <- phi_main * psi_main_up
+  tr[2, 6] <- 1 - phi_main
+
+  # From state 3 (alive in mainstem Gembeck-Sager)
+  tr[3, 1] <- 0
+  tr[3, 2] <- 0
+  tr[3, 3] <- phi_lower * (1 - psi_sager)
+  tr[3, 4] <- phi_lower * psi_sager
+  tr[3, 5] <- 0
+  tr[3, 6] <- 1 - phi_lower
+
+  # From state 4 (emigrated past Sager; absorbing)
+  tr[4, 1] <- 0
+  tr[4, 2] <- 0
+  tr[4, 3] <- 0
+  tr[4, 4] <- 1
+  tr[4, 5] <- 0
+  tr[4, 6] <- 0
+
+  # From state 5 (emigrated upstream past WS; absorbing)
+  tr[5, 1] <- 0
+  tr[5, 2] <- 0
+  tr[5, 3] <- 0
+  tr[5, 4] <- 0
+  tr[5, 5] <- 1
+  tr[5, 6] <- 0
+
+  # From state 6 (dead; absorbing)
+  tr[6, 1] <- 0
+  tr[6, 2] <- 0
+  tr[6, 3] <- 0
+  tr[6, 4] <- 0
+  tr[6, 5] <- 0
+  tr[6, 6] <- 1
+
+  # ======================================================
+  # Likelihood
+  # ======================================================
+
+  for(i in 1:n_fish) {
+
+    # Initial state known from tagging location (supplied as data)
+    z[i, 1] <- z_init[i]
+
+    # Hidden state process
+    for(t in 2:n_occ) {
+      z[i, t] ~ dcat(tr[z[i, t-1], 1:6])
+    }
+
+    # Observation process
+    for(t in 2:n_occ) {
+
+      # -- Trib antenna: fires on any 1<->2 crossing --
+      crossed_trib[i, t] <- equals(z[i, t-1], 1) * equals(z[i, t], 2) +
+                             equals(z[i, t-1], 2) * equals(z[i, t], 1)
+      y_trib[i, t] ~ dbern(p_trib * crossed_trib[i, t])
+
+      # -- Gembeck antenna: fires on 2->3 downstream crossing --
+      y_gem[i, t] ~ dbern(p_gem * equals(z[i, t-1], 2) * equals(z[i, t], 3))
+
+      # -- Warm Springs antenna: fires on 2->5 upstream crossing --
+      y_ws[i, t] ~ dbern(p_ws * equals(z[i, t-1], 2) * equals(z[i, t], 5))
+
+      # -- Sager Ln antenna: fires on 3->4 downstream crossing --
+      # Fish detected here could NOT have been detected at Gembeck (state 2->3)
+      # at this occasion, so the joint likelihood across occasions allows
+      # estimation of p_gem from the data via the double-observer structure.
+      y_sag[i, t] ~ dbern(p_sag * equals(z[i, t-1], 3) * equals(z[i, t], 4))
+
+      # -- Electrofishing: proximity detection in mainstem WS-Gembeck --
+      y_efish[i, t] ~ dbern(p_efish * equals(z[i, t], 2))
+
+    }
+  }
+
+} # end model

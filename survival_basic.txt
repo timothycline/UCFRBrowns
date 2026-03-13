@@ -1,0 +1,19 @@
+model{
+  # Priors
+  mig ~ dbeta(1, 1)
+  surv ~ dbeta(1, 1)
+
+  # Get detection probs
+  #p_efish <- 0.4
+  #p_scan <- 0.9
+
+  p_efish_logit ~ dnorm(p_efish_mean_logit, pow(p_efish_sd_logit, -2))
+  p_scan_logit ~ dnorm(p_scan_mean_logit, pow(p_scan_sd_logit, -2))
+  p_efish <- ilogit(p_efish_logit)
+  p_scan <- ilogit(p_scan_logit)
+  
+  # Likelihood
+  n_recapped ~ dbinom( surv * (1 - mig) * p_efish, n_tagged)  
+  n_scanned ~ dbinom( surv * mig * p_scan, n_tagged)  
+
+} # end model

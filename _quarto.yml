@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "UCF Brown Trout Power Analysis"
+  page-navigation: true
+  repo-url: https://github.com/your-username/CFBrown
+  repo-actions: [issue]
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    toc-title: "Contents"
+    code-fold: true
+    code-tools: true
+    code-link: true
+    fig-width: 8
+    fig-height: 5
+    fig-align: center
+    df-print: kable
+    embed-resources: false

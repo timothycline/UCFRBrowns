@@ -1,0 +1,529 @@
+---
+title: "Juvenile Brown Trout Survival & Emigration Dynamics"
+subtitle: "Upper Clark Fork River — Mark-Recapture Power Analysis"
+date: today
+date-format: "MMMM D, YYYY"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+library(cowplot)
+library(kableExtra)
+library(scales)
+
+# True simulation parameter values — must match power_analysis_CFBrown_loop.R
+n_occ            <- 5
+psi_main_down_true <- 0.04
+psi_main_back_true <- 0.04
+
+# Scenario reference table
+scenarios <- tibble(
+  scenario     = 1:10,
+  n_tagged     = c(500, 1000, 2000, 4000, 1000, 1000, 1000, 1000, 2000, 1000),
+  phi_annual   = c(0.20, 0.20, 0.20, 0.20, 0.10, 0.30, 0.20, 0.20, 0.20, 0.10),
+  p_efish_true = c(0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.15, 0.25, 0.25, 0.25),
+  use_inform   = c(rep(TRUE, 7), rep(FALSE, 3)),
+  label        = c(
+    "500 tagged",  "1000 tagged", "2000 tagged",  "4000 tagged",
+    "Low survival\n(10%)",  "Higher survival\n(30%)",  "Poor efish\n(p = 0.15)",
+    "1000 tagged\n(vague priors)", "2000 tagged\n(vague priors)",
+    "Low survival\n(vague priors)"
+  ),
+  label_short = c(
+    "500", "1000", "2000", "4000",
+    "Low φ", "High φ", "Low p_efish",
+    "1000 (vague)", "2000 (vague)", "Low φ (vague)"
+  )
+) |>
+  mutate(phi_occ = phi_annual^(1 / n_occ))
+
+# Load simulation results if available
+results_file     <- "simulation_output_CFBrown.rds"
+results_available <- file.exists(results_file)
+
+if (results_available) {
+  all_data <- read_rds(results_file) |>
+    left_join(scenarios, by = c("scenario", "n_tagged", "use_inform")) |>
+    mutate(
+      bias_phi_main  = phi_main_mean  - phi_occ,
+      bias_phi_trib  = phi_trib_mean  - phi_occ,
+      bias_psi_down  = psi_down_mean  - psi_main_down_true,
+      bias_psi_back  = psi_back_mean  - psi_main_back_true,
+      bias_p_gem     = p_gem_mean     - 0.76
+    )
+}
+
+# Shared plot theme
+theme_cf <- function() {
+  theme_cowplot(font_size = 12) +
+    theme(strip.background = element_rect(fill = "grey92"),
+          legend.position  = "bottom")
+}
+```
+
+## Overview
+
+This document presents a simulation-based power analysis for a multi-year juvenile
+brown trout (*Salmo trutta*) survival study on the Upper Clark Fork River, Montana.
+The study uses PIT (Passive Integrated Transponder) tagging combined with stationary
+antenna arrays and electrofishing recapture surveys to estimate reach-specific
+survival and emigration dynamics.
+
+**Core scientific questions:**
+
+1. Is survival of juvenile brown trout in the mainstem low enough to be a
+   demographic bottleneck?
+2. Are fish emigrating from tributaries permanently leaving the upper river, or do
+   they remain in the mainstem and contribute to the resident population?
+
+The power analysis asks: *how many fish need to be tagged to answer these questions
+with acceptable precision?*
+
+---
+
+## Study System
+
+### Spatial Layout
+
+The monitoring network spans approximately 22 river miles of the upper Clark Fork,
+anchored by three mainstem PIT antenna arrays and three tributary mouth antennas.
+
+```{mermaid}
+%%| fig-cap: "Study system schematic. Boxes represent states in the statistical model; arrows show allowed transitions with the antenna that fires on each crossing."
+%%| fig-width: 9
+
+flowchart TD
+    T["**State 1**\nAlive in Tributary\n*(tribs 1, 2, 3 lumped)*"]
+    M["**State 2**\nAlive in Mainstem\nWarm Springs – Gembeck Rd\n*(primary study area)*"]
+    L["**State 3**\nAlive in Mainstem\nGembeck Rd – Sager Ln\n*(secondary study area)*"]
+    PS["**State 4**\nEmigrated past Sager Ln\n*(absorbing)*"]
+    PW["**State 5**\nEmigrated past Warm Springs\n*(absorbing)*"]
+    D["**State 6**\nDead\n*(absorbing)*"]
+
+    T -- "Trib antenna\n*p_trib ≈ 0.93*" --> M
+    M -- "Trib antenna\n*p_trib ≈ 0.93*" --> T
+    M -- "Gembeck antenna\n*p_gem ≈ 0.76*" --> L
+    L -- "Sager antenna\n*p_sag ≈ 0.76*" --> PS
+    M -- "WS antenna\n*p_ws ≈ 0.76*" --> PW
+    T --> D
+    M --> D
+    L --> D
+
+    style T  fill:#d4ecd4,stroke:#4a7c4a
+    style M  fill:#d0e4f7,stroke:#3a6ea8
+    style L  fill:#e8d8f0,stroke:#7a4a9a
+    style PS fill:#f5e6c8,stroke:#a07030
+    style PW fill:#f5e6c8,stroke:#a07030
+    style D  fill:#f0d0d0,stroke:#a03030
+```
+
+### Antenna Design and Detection Efficiency
+
+All antenna detections are **transition-based**: an antenna fires only when a fish
+physically crosses that boundary. This is a critical design feature — the
+Gembeck + Sager antenna pair constitutes a **double-observer system** for
+downstream emigrants, allowing detection efficiency at Gembeck to be estimated
+from the data rather than assumed.
+
+```{r}
+#| label: tbl-antennas
+#| tbl-cap: "Monitoring infrastructure and pilot-estimated detection probabilities."
+#| echo: false
+
+tibble(
+  Location          = c("Trib 1, 2, 3 mouth antennas", "Warm Springs (mainstem)",
+                        "Gembeck Rd (mainstem)", "Sager Ln (mainstem)",
+                        "Electrofishing (mainstem)"),
+  Type              = c("Passive PIT", "Passive PIT", "Passive PIT",
+                        "Passive PIT", "Active recapture"),
+  `Detection model` = c("Transition: states 1 ↔ 2", "Transition: state 2 → 5",
+                        "Transition: state 2 → 3", "Transition: state 3 → 4",
+                        "Proximity: state 2"),
+  `Pilot estimate`  = c("0.93", "0.76 (assumed)", "0.76", "0.76 (assumed)", "0.15 – 0.35")
+) |>
+  kbl(align = c("l", "l", "l", "c")) |>
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE) |>
+  row_spec(0, bold = TRUE)
+```
+
+---
+
+## Statistical Model
+
+### Hidden Markov Model Structure
+
+Fish fate is modeled as a Hidden Markov Model (HMM) in which the true state
+$z_{i,t}$ (alive in a given reach, or dead) evolves according to a Markov
+transition matrix and is observed imperfectly through the antenna and
+electrofishing detection process.
+
+At each occasion $t$, the state of fish $i$ evolves as:
+
+$$z_{i,t} \sim \text{Categorical}(\mathbf{T}_{z_{i,t-1},\cdot})$$
+
+where $\mathbf{T}$ is the $6 \times 6$ transition matrix parameterized by
+reach-specific survival ($\phi$) and movement probabilities ($\psi$). The
+initial state $z_{i,1}$ is known from the tagging location.
+
+### Transition Matrix
+
+Movement from the primary study area (state 2) uses a Dirichlet parameterization
+to ensure that the three directional probabilities (return to trib, downstream,
+upstream) sum to $\leq 1$:
+
+$$\psi_{\text{back}}, \psi_{\text{down}}, \psi_{\text{up}} = \psi_{\text{move}} \times \text{Dir}(\alpha_1, \alpha_2, \alpha_3)$$
+
+### Detection Priors
+
+Detection probability priors are **logit-normal**, centered on pilot estimates
+when informative priors are requested:
+
+$$\text{logit}(p) \sim \mathcal{N}(\mu, \sigma^2)$$
+
+| Prior type | $\mu$ | $\sigma$ (logit scale) |
+|---|---|---|
+| Informative | $\text{logit}(\hat{p}_\text{pilot})$ | 0.30 |
+| Vague | 0 | 5.00 |
+
+Toggling between prior types requires only a change in the data passed to JAGS —
+the model file itself is unchanged.
+
+### JAGS Model
+
+```{r}
+#| label: jags-model
+#| eval: false
+#| echo: true
+#| code-fold: false
+#| file: survival_CFBrown.txt
+```
+
+---
+
+## Simulation Design
+
+### Approach
+
+The power analysis uses a **parametric bootstrap** design:
+
+1. Simulate a dataset under known true parameters
+2. Fit the JAGS model to the simulated data
+3. Record posterior means and SDs for key parameters
+4. Repeat 50 times per scenario
+5. Summarize bias, precision (posterior SD), and RMSE across replications
+
+Power is assessed by whether the posterior SD is small enough to distinguish
+biologically meaningful differences — not a formal hypothesis test.
+
+### True Parameter Values
+
+```{r}
+#| label: tbl-params
+#| tbl-cap: "True parameter values used in all simulations (baseline survival scenario). Annual survival is converted to per-occasion survival as φ^(1/5)."
+#| echo: false
+
+tibble(
+  Parameter = c(
+    "φ_trib, φ_main, φ_lower (per occasion, baseline)",
+    "ψ_trib→main (emigrate from trib per occasion)",
+    "ψ_main→trib (return to trib per occasion)",
+    "ψ_main→downstream (past Gembeck per occasion)",
+    "ψ_main→upstream (past WS per occasion)",
+    "ψ_sager (pass Sager given alive in state 3)",
+    "p_trib (trib antenna)",
+    "p_gem (Gembeck antenna)",
+    "p_ws, p_sag (WS, Sager antennas)",
+    "p_efish (electrofishing, baseline)"
+  ),
+  `True value` = c(
+    "0.20^(1/5) = 0.725",
+    "0.06",  "0.04",  "0.04", "0.01",  "0.40",
+    "0.93",  "0.76",  "0.76", "0.25"
+  ),
+  Source = c(
+    "Colleague email (10–30% annual range)",
+    "Derived from 11–15% total emigration",
+    "Professional judgment",
+    "Derived from 11–15% total emigration",
+    "Low; WS antenna as upstream sentinel",
+    "Expected high for downstream section",
+    "Pilot antenna data (2024–2025)",
+    "Pilot antenna data (2024–2025)",
+    "Assumed equal to Gembeck estimate",
+    "Pilot electrofishing (2024–2025)"
+  )
+) |>
+  kbl(align = c("l", "c", "l")) |>
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = TRUE) |>
+  row_spec(0, bold = TRUE)
+```
+
+### Scenarios
+
+```{r}
+#| label: tbl-scenarios
+#| tbl-cap: "Simulation scenarios. Scenarios 1–7 use informative detection priors from pilot data. Scenarios 8–10 repeat key conditions with vague priors to quantify the value of the pilot work."
+#| echo: false
+
+scenarios |>
+  select(scenario, n_tagged, phi_annual, p_efish_true, use_inform) |>
+  mutate(
+    phi_occ    = round(phi_annual^(1/5), 3),
+    use_inform = if_else(use_inform, "Informative", "Vague")
+  ) |>
+  rename(
+    Scenario      = scenario,
+    `N tagged`    = n_tagged,
+    `φ (annual)`  = phi_annual,
+    `φ (per occ)` = phi_occ,
+    `p_efish`     = p_efish_true,
+    `Det. priors` = use_inform
+  ) |>
+  kbl(align = c("c", "r", "c", "c", "c", "c")) |>
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE) |>
+  row_spec(0, bold = TRUE) |>
+  pack_rows("Vary sample size (baseline survival)", 1, 4) |>
+  pack_rows("Vary survival & detection (1000 fish)", 5, 7) |>
+  pack_rows("Vague priors — value of pilot data", 8, 10)
+```
+
+---
+
+## Results
+
+```{r}
+#| label: results-check
+#| echo: false
+#| results: asis
+
+if (!results_available) {
+  cat("> **Results pending.** The simulation output file
+  (`simulation_output_CFBrown.rds`) has not yet been committed to the
+  repository. Once the overnight JAGS run completes and the output is pushed
+  to GitHub, this section will render automatically on the next Actions run.")
+}
+```
+
+```{r}
+#| label: convergence-summary
+#| echo: false
+#| eval: !expr results_available
+#| tbl-cap: "Convergence summary by scenario (Rhat < 1.1 for all monitored parameters)."
+
+conv_summary <- all_data |>
+  group_by(scenario, label_short, n_tagged, phi_annual, use_inform) |>
+  summarise(
+    n_reps      = n(),
+    n_converged = sum(converged, na.rm = TRUE),
+    conv_pct    = round(100 * mean(converged, na.rm = TRUE)),
+    .groups     = "drop"
+  )
+
+conv_summary |>
+  select(Scenario = scenario, Label = label_short,
+         `N tagged` = n_tagged, `φ annual` = phi_annual,
+         `Informative priors` = use_inform,
+         `Reps converged` = n_converged,
+         `% converged` = conv_pct) |>
+  mutate(`Informative priors` = if_else(`Informative priors`, "Yes", "No")) |>
+  kbl(align = c("c","l","r","c","c","r","r")) |>
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE) |>
+  row_spec(0, bold = TRUE)
+```
+
+### Precision by Sample Size
+
+Posterior standard deviation (SD) measures how precisely each parameter is
+estimated. Smaller SD = tighter credible intervals = more confident conclusions.
+
+```{r}
+#| label: fig-precision-ntag
+#| fig-cap: "Posterior SD for primary parameters across sample size scenarios (scenarios 1–4, informative priors, 20% annual survival). Horizontal blue lines show the true parameter value. Lower SD indicates better precision."
+#| eval: !expr results_available
+
+plot_dat <- all_data |>
+  filter(scenario %in% 1:4) |>
+  select(scenario, n_tagged, label_short,
+         `Trib survival\n(φ_trib)`       = phi_trib_sd,
+         `Mainstem survival\n(φ_main)`   = phi_main_sd,
+         `Downstream emigration\n(ψ_down)` = psi_down_sd,
+         `Gembeck detection\n(p_gem)`    = p_gem_sd) |>
+  pivot_longer(-(scenario:label_short), names_to = "parameter", values_to = "post_sd") |>
+  mutate(n_tagged = factor(n_tagged))
+
+ggplot(plot_dat, aes(x = n_tagged, y = post_sd)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.6, outlier.size = 0.8) +
+  facet_wrap(~parameter, scales = "free_y", ncol = 2) +
+  labs(x = "Number of fish tagged", y = "Posterior SD") +
+  theme_cf()
+```
+
+### Bias Assessment
+
+Bias is the mean difference between the estimated posterior mean and the known
+true value. Values near zero indicate the model recovers the truth without
+systematic over- or under-estimation.
+
+```{r}
+#| label: fig-bias
+#| fig-cap: "Bias (estimated − true) for survival and downstream emigration across sample size scenarios. Dashed line at zero = no bias."
+#| eval: !expr results_available
+
+bias_dat <- all_data |>
+  filter(scenario %in% 1:4) |>
+  select(scenario, n_tagged,
+         `Mainstem survival\n(φ_main)`     = bias_phi_main,
+         `Trib survival\n(φ_trib)`          = bias_phi_trib,
+         `Downstream emigration\n(ψ_down)`  = bias_psi_down) |>
+  pivot_longer(-(scenario:n_tagged), names_to = "parameter", values_to = "bias") |>
+  mutate(n_tagged = factor(n_tagged))
+
+ggplot(bias_dat, aes(x = n_tagged, y = bias)) +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey40") +
+  geom_boxplot(fill = "coral", alpha = 0.6, outlier.size = 0.8) +
+  facet_wrap(~parameter, scales = "free_y", ncol = 3) +
+  labs(x = "Number of fish tagged", y = "Bias (estimated − true)") +
+  theme_cf()
+```
+
+### Value of Pilot Detection Data (Prior Sensitivity)
+
+Scenarios 8–10 repeat baseline conditions with **vague** priors on detection
+probabilities. Comparing these against matched informative-prior scenarios
+quantifies how much the 2023–2025 pilot antenna and electrofishing data are
+worth in terms of parameter precision.
+
+```{r}
+#| label: fig-prior-sensitivity
+#| fig-cap: "Effect of prior type on posterior SD for key parameters. Each pair of boxplots shares the same n_tagged and true parameter values. 'Informative' priors use pilot detection estimates; 'Vague' priors are essentially flat."
+#| eval: !expr results_available
+
+prior_dat <- all_data |>
+  filter(scenario %in% c(2, 5, 8, 10)) |>
+  mutate(
+    comparison = case_when(
+      scenario %in% c(2, 8)  ~ "1000 fish\n20% survival",
+      scenario %in% c(5, 10) ~ "1000 fish\n10% survival"
+    ),
+    prior_label = if_else(use_inform, "Informative\npriors", "Vague\npriors")
+  ) |>
+  select(comparison, prior_label,
+         `φ_main SD`  = phi_main_sd,
+         `ψ_down SD`  = psi_down_sd,
+         `p_gem SD`   = p_gem_sd) |>
+  pivot_longer(-(comparison:prior_label), names_to = "parameter", values_to = "post_sd")
+
+ggplot(prior_dat, aes(x = prior_label, y = post_sd, fill = prior_label)) +
+  geom_boxplot(alpha = 0.7, outlier.size = 0.8) +
+  facet_grid(parameter ~ comparison, scales = "free_y") +
+  scale_fill_manual(values = c("Informative\npriors" = "steelblue",
+                                "Vague\npriors"       = "coral"),
+                    guide = "none") +
+  labs(x = NULL, y = "Posterior SD") +
+  theme_cf()
+```
+
+### Summary Statistics
+
+```{r}
+#| label: tbl-summary
+#| tbl-cap: "Summary of estimation performance across all scenarios. Mean SE = mean posterior SD across replications (precision); RMSE = root mean squared error (combined accuracy + precision); Bias = mean(estimated − true)."
+#| eval: !expr results_available
+
+all_data |>
+  group_by(Scenario = scenario, Label = label_short) |>
+  summarise(
+    `N reps`        = sum(!is.na(phi_main_mean)),
+    `φ_main bias`   = round(mean(bias_phi_main,  na.rm = TRUE), 4),
+    `φ_main mean SE`= round(mean(phi_main_sd,    na.rm = TRUE), 4),
+    `φ_main RMSE`   = round(sqrt(mean(bias_phi_main^2, na.rm = TRUE)), 4),
+    `ψ_down bias`   = round(mean(bias_psi_down,  na.rm = TRUE), 4),
+    `ψ_down mean SE`= round(mean(psi_down_sd,    na.rm = TRUE), 4),
+    `p_gem mean SE` = round(mean(p_gem_sd,        na.rm = TRUE), 4),
+    `% converged`   = round(100 * mean(converged, na.rm = TRUE)),
+    .groups = "drop"
+  ) |>
+  kbl(align = c("c", "l", rep("r", 8))) |>
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = TRUE, font_size = 13) |>
+  row_spec(0, bold = TRUE)
+```
+
+---
+
+## Recommendations
+
+```{r}
+#| label: recommendations
+#| echo: false
+#| results: asis
+
+if (results_available) {
+
+  # Pull key precision numbers for the inline text
+  baseline <- all_data |>
+    filter(scenario == 2) |>
+    summarise(
+      phi_main_se  = round(mean(phi_main_sd,  na.rm = TRUE), 3),
+      psi_down_se  = round(mean(psi_down_sd,  na.rm = TRUE), 3),
+      conv_pct     = round(100 * mean(converged, na.rm = TRUE))
+    )
+
+  cat(glue::glue("
+Based on {baseline$conv_pct}% MCMC convergence and a mean posterior SD of
+**{baseline$phi_main_se}** for mainstem survival and **{baseline$psi_down_se}**
+for downstream emigration probability at the 1,000-fish baseline scenario,
+the following recommendations apply:
+"))
+}
+```
+
+Regardless of simulation outcome, the following structural conclusions hold:
+
+**Minimum recommended tagging effort: 1,000 fish**
+: Below this threshold, emigration estimates become unstable due to the small
+  number of fish passing antennas. At 11–15% emigration, only 110–150 emigrants
+  are expected per 1,000 tagged fish — the lower bound of what the Gembeck/Sager
+  double-observer system needs to reliably estimate detection efficiency.
+
+**Target tagging effort: 2,000–4,000 fish**
+: Achievable within the spring electrofishing + screw trap design (pilot estimate:
+  4,000–6,000 fish). This range meaningfully improves precision over the 1,000-fish
+  minimum and provides robustness against poor electrofishing years (p_efish ≈ 0.15).
+
+**Value of pilot detection data**
+: Informative priors on detection probabilities (from the 2023–2025 pilot work)
+  materially improve estimation of downstream emigration and Gembeck detection
+  efficiency. The pilot data are load-bearing — vague priors produce noticeably
+  wider posteriors, particularly when survival is low and few fish are available
+  at each antenna.
+
+**Primary study reach: Warm Springs to Gembeck Rd**
+: The ~11-mile reach between these two mainstem antennas is appropriately sized
+  for boat electrofishing and provides a bounded study area for survival estimation.
+  Extension to the Gembeck–Sager section is worthwhile if tagging targets are met,
+  but the upper reach should be the analytical priority.
+
+---
+
+## Methods Code
+
+The full simulation and model-fitting code is available in this repository.
+Simulation is deterministic given the scenario inputs; results reproduce exactly
+with `set.seed(123)`.
+
+```{r}
+#| label: show-sim-code
+#| eval: false
+#| echo: true
+#| code-fold: false
+#| file: power_analysis_CFBrown_loop.R
+```
+
+---
+
+*Analysis conducted in R using `jagsUI` for Bayesian MCMC estimation.
+Model: `survival_CFBrown.txt`. Rendered with [Quarto](https://quarto.org).*
