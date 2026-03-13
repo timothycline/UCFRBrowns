@@ -22,23 +22,17 @@ jobs:
         with:
           use-public-rspm: true
 
-      - name: Cache R packages
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r-${{ hashFiles('DESCRIPTION') }}-1
-          restore-keys: ${{ runner.os }}-r-
+      - name: Install system dependencies
+        run: sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libfontconfig1-dev
 
       - name: Install R packages
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          packages: |
-            any::tidyverse
-            any::forcats
-            any::cowplot
-            any::kableExtra
-            any::scales
-            any::glue
+        shell: Rscript {0}
+        run: |
+          install.packages(
+            c("tidyverse", "forcats", "cowplot",
+              "kableExtra", "scales", "glue"),
+            repos = "https://cloud.r-project.org"
+          )
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
