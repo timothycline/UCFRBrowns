@@ -25,7 +25,18 @@
 
 library(tidyverse)
 library(jagsUI)
+library(here)
+library(furrr)
 
+# Parallel setup:
+# Each JAGS rep uses 3 cores (parallel chains). With 10 logical cores available,
+# run 3 scenarios simultaneously (3 scenarios × 3 chains = 9 cores, 1 free).
+n_jags_chains <- 3
+n_workers     <- floor(parallel::detectCores() / n_jags_chains)
+plan(multisession, workers = n_workers)
+
+# here() always resolves paths relative to the project root (.Rproj location)
+# regardless of the current working directory
 set.seed(123)
 
 # ==============================================================================
@@ -176,17 +187,23 @@ simulate_fish <- function(n_tagged, phi_trib, phi_main, phi_lower,
   z_init <- sample(1:n_states, size = n_tagged, replace = TRUE,
                    prob = z_init_probs)
 
-  # Simulate hidden state trajectories
+  # Simulate hidden state trajectories (vectorized across fish)
   z <- matrix(NA_integer_, nrow = n_tagged, ncol = n_occ)
   z[, 1] <- z_init
 
-  for(t in 2:n_occ) {
-    for(i in 1:n_tagged) {
-      z[i, t] <- which(rmultinom(1, 1, tr[z[i, t-1], ]) == 1)
-    }
+  # Inverse-CDF categorical sampler: draws one category per row of a
+  # probability matrix without any R-level fish loop
+  draw_states <- function(prob_matrix) {
+    u        <- runif(nrow(prob_matrix))
+    cum_prob <- t(apply(prob_matrix, 1, cumsum))
+    rowSums(cum_prob < u) + 1L
   }
 
-  # Simulate observations (occasions 2 through n_occ)
+  for(t in 2:n_occ) {
+    z[, t] <- draw_states(tr[z[, t-1], ])
+  }
+
+  # Simulate observations (vectorized across fish)
   y_trib  <- matrix(0L, nrow = n_tagged, ncol = n_occ)
   y_gem   <- matrix(0L, nrow = n_tagged, ncol = n_occ)
   y_ws    <- matrix(0L, nrow = n_tagged, ncol = n_occ)
@@ -194,30 +211,22 @@ simulate_fish <- function(n_tagged, phi_trib, phi_main, phi_lower,
   y_efish <- matrix(0L, nrow = n_tagged, ncol = n_occ)
 
   for(t in 2:n_occ) {
-    for(i in 1:n_tagged) {
-      prev <- z[i, t-1]
-      curr <- z[i, t]
+    prev <- z[, t-1]
+    curr <- z[, t]
 
-      # Trib antenna: 1<->2 crossing (either direction)
-      if((prev == 1 && curr == 2) || (prev == 2 && curr == 1))
-        y_trib[i, t] <- rbinom(1, 1, p_trib)
+    # Identify which fish triggered each antenna this occasion
+    trib_cross <- (prev == 1L & curr == 2L) | (prev == 2L & curr == 1L)
+    gem_cross  <-  prev == 2L & curr == 3L
+    ws_cross   <-  prev == 2L & curr == 5L
+    sag_cross  <-  prev == 3L & curr == 4L
+    in_main    <-  curr == 2L
 
-      # Gembeck antenna: 2->3 crossing only
-      if(prev == 2 && curr == 3)
-        y_gem[i, t] <- rbinom(1, 1, p_gem)
-
-      # Warm Springs antenna: 2->5 crossing only
-      if(prev == 2 && curr == 5)
-        y_ws[i, t] <- rbinom(1, 1, p_ws)
-
-      # Sager Ln antenna: 3->4 crossing only (now transition-based)
-      if(prev == 3 && curr == 4)
-        y_sag[i, t] <- rbinom(1, 1, p_sag)
-
-      # Electrofishing: proximity in state 2
-      if(curr == 2)
-        y_efish[i, t] <- rbinom(1, 1, p_efish)
-    }
+    # Draw detections only for fish that could trigger each detector
+    if(any(trib_cross)) y_trib[trib_cross, t] <- rbinom(sum(trib_cross), 1, p_trib)
+    if(any(gem_cross))  y_gem[gem_cross,   t] <- rbinom(sum(gem_cross),  1, p_gem)
+    if(any(ws_cross))   y_ws[ws_cross,     t] <- rbinom(sum(ws_cross),   1, p_ws)
+    if(any(sag_cross))  y_sag[sag_cross,   t] <- rbinom(sum(sag_cross),  1, p_sag)
+    if(any(in_main))    y_efish[in_main,   t] <- rbinom(sum(in_main),    1, p_efish)
   }
 
   list(z       = z,
@@ -236,86 +245,61 @@ simulate_fish <- function(n_tagged, phi_trib, phi_main, phi_lower,
 
 out_list <- vector("list", nrow(scenarios))
 
-for(s in 1:nrow(scenarios)) {
+# Wrap one scenario into a function so future_map can distribute across workers
+run_scenario <- function(s) {
 
-  n_tagged   <- scenarios$n_tagged[s]
-  phi_occ    <- scenarios$phi_annual[s]^(1 / n_occ)
-  p_efish_s  <- scenarios$p_efish_true_val[s]
-  priors     <- if(scenarios$use_inform_priors[s]) priors_informative else priors_vague
-
-  cat("\n=== Scenario", s, ":", scenarios$label[s],
-      "| phi/occ =", round(phi_occ, 3), "===\n")
+  n_tagged  <- scenarios$n_tagged[s]
+  phi_occ   <- scenarios$phi_annual[s]^(1 / n_occ)
+  p_efish_s <- scenarios$p_efish_true_val[s]
+  priors    <- if(scenarios$use_inform_priors[s]) priors_informative else priors_vague
 
   out_tibble <- tibble(
-    scenario        = s,
-    n_tagged        = n_tagged,
-    use_inform      = scenarios$use_inform_priors[s],
-    rep             = 1:n_reps,
-    # Primary parameters of interest
-    phi_trib_mean   = NA_real_,
-    phi_trib_sd     = NA_real_,
-    phi_main_mean   = NA_real_,
-    phi_main_sd     = NA_real_,
-    # Emigration from upper section
-    psi_down_mean   = NA_real_,   # psi_main_down: downstream past Gembeck
-    psi_down_sd     = NA_real_,
-    psi_back_mean   = NA_real_,   # psi_main_back: return to trib
-    psi_back_sd     = NA_real_,
-    # Detection (to verify these are recoverable)
-    p_gem_mean      = NA_real_,
-    p_gem_sd        = NA_real_,
-    p_efish_mean    = NA_real_,
-    p_efish_sd      = NA_real_,
-    converged       = logical(n_reps)
+    scenario      = s,
+    n_tagged      = n_tagged,
+    use_inform    = scenarios$use_inform_priors[s],
+    rep           = 1:n_reps,
+    phi_trib_mean = NA_real_,  phi_trib_sd  = NA_real_,
+    phi_main_mean = NA_real_,  phi_main_sd  = NA_real_,
+    psi_down_mean = NA_real_,  psi_down_sd  = NA_real_,
+    psi_back_mean = NA_real_,  psi_back_sd  = NA_real_,
+    p_gem_mean    = NA_real_,  p_gem_sd     = NA_real_,
+    p_efish_mean  = NA_real_,  p_efish_sd   = NA_real_,
+    converged     = logical(n_reps)
   )
 
   for(i in 1:n_reps) {
 
-    cat("  rep", i, "\n")
-
-    # --- Simulate ---
     sim <- simulate_fish(
       n_tagged      = n_tagged,
-      phi_trib      = phi_occ,
-      phi_main      = phi_occ,
-      phi_lower     = phi_occ,
+      phi_trib      = phi_occ,   phi_main  = phi_occ,  phi_lower = phi_occ,
       psi_trib_out  = psi_trib_out_true,
       psi_main_back = psi_main_back_true,
       psi_main_down = psi_main_down_true,
       psi_main_up   = psi_main_up_true,
       psi_sager     = psi_sager_true,
-      p_trib        = p_trib_true,
-      p_gem         = p_gem_true,
-      p_ws          = p_ws_true,
-      p_sag         = p_sag_true,
+      p_trib        = p_trib_true,   p_gem = p_gem_true,
+      p_ws          = p_ws_true,     p_sag = p_sag_true,
       p_efish       = p_efish_s,
       n_occ         = n_occ,
       z_init_probs  = z_init_probs
     )
 
-    # --- JAGS data ---
-    # Detection prior hyperparameters are passed here, enabling the
-    # informative/vague toggle without any model file changes.
     jags_data <- list(
-      n_fish      = n_tagged,
-      n_occ       = n_occ,
-      z_init      = as.integer(sim$z_init),
-      y_trib      = sim$y_trib,
-      y_gem       = sim$y_gem,
-      y_ws        = sim$y_ws,
-      y_sag       = sim$y_sag,
-      y_efish     = sim$y_efish,
-      dir_alpha   = c(2, 2, 1),          # Dirichlet: slight bias toward back/down vs upstream
-      p_trib_mu   = priors$p_trib$mu,    p_trib_sd   = priors$p_trib$sd,
-      p_gem_mu    = priors$p_gem$mu,     p_gem_sd    = priors$p_gem$sd,
-      p_ws_mu     = priors$p_ws$mu,      p_ws_sd     = priors$p_ws$sd,
-      p_sag_mu    = priors$p_sag$mu,     p_sag_sd    = priors$p_sag$sd,
-      p_efish_mu  = priors$p_efish$mu,   p_efish_sd  = priors$p_efish$sd
+      n_fish     = n_tagged,   n_occ   = n_occ,
+      z_init     = as.integer(sim$z_init),
+      y_trib     = sim$y_trib, y_gem   = sim$y_gem,
+      y_ws       = sim$y_ws,   y_sag   = sim$y_sag,
+      y_efish    = sim$y_efish,
+      dir_alpha  = c(2, 2, 1),
+      p_trib_mu  = priors$p_trib$mu,   p_trib_sd  = priors$p_trib$sd,
+      p_gem_mu   = priors$p_gem$mu,    p_gem_sd   = priors$p_gem$sd,
+      p_ws_mu    = priors$p_ws$mu,     p_ws_sd    = priors$p_ws$sd,
+      p_sag_mu   = priors$p_sag$mu,    p_sag_sd   = priors$p_sag$sd,
+      p_efish_mu = priors$p_efish$mu,  p_efish_sd = priors$p_efish$sd
     )
 
-    # --- Initial values ---
     z_inits      <- sim$z
-    z_inits[, 1] <- NA   # occasion 1 is a logical node; do not initialize
+    z_inits[, 1] <- NA
 
     jags_inits <- function() {
       list(
@@ -335,7 +319,6 @@ for(s in 1:nrow(scenarios)) {
       )
     }
 
-    # --- Run JAGS ---
     jags_out <- tryCatch(
       jagsUI::jags(
         data       = jags_data,
@@ -344,18 +327,15 @@ for(s in 1:nrow(scenarios)) {
                        "psi_trib_out", "psi_main_back", "psi_main_down",
                        "psi_main_up", "psi_sager",
                        "p_trib", "p_gem", "p_ws", "p_sag", "p_efish"),
-        model.file = "./survival_CFBrown.txt",
-        n.chains   = 3,
+        model.file = here("survival_CFBrown.txt"),
+        n.chains   = n_jags_chains,
         n.iter     = 12000,
         n.burnin   = 6000,
         n.thin     = 2,
         parallel   = TRUE,
         verbose    = FALSE
       ),
-      error = function(e) {
-        cat("    JAGS error:", conditionMessage(e), "\n")
-        NULL
-      }
+      error = function(e) NULL
     )
 
     if(!is.null(jags_out)) {
@@ -376,10 +356,18 @@ for(s in 1:nrow(scenarios)) {
 
   } # end rep loop
 
-  out_list[[s]] <- out_tibble
+  # Checkpoint: save after each scenario completes
+  saveRDS(out_tibble, here(paste0("checkpoint_scenario_", s, ".rds")))
+  cat("Scenario", s, "complete.\n")
 
-} # end scenario loop
+  out_tibble
+}
+
+# Run all scenarios in parallel across workers
+# With 10 cores and 3 chains/rep: 3 scenarios run simultaneously
+out_list <- future_map(1:nrow(scenarios), run_scenario,
+                       .options = furrr_options(seed = TRUE))
 
 all_data <- bind_rows(out_list)
-write_rds(all_data, "./simulation_output_CFBrown.rds")
+write_rds(all_data, here("simulation_output_CFBrown.rds"))
 cat("\nDone. Output saved to simulation_output_CFBrown.rds\n")

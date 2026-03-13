@@ -30,7 +30,7 @@ jobs:
         run: |
           install.packages(
             c("tidyverse", "forcats", "cowplot",
-              "kableExtra", "scales", "glue"),
+              "kableExtra", "scales", "glue", "furrr"),
             repos = "https://cloud.r-project.org"
           )
 
