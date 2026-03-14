@@ -104,49 +104,46 @@ z_init_probs <- c(0.85, 0.15, 0.00, 0.00, 0.00, 0.00)
 # Scenario grid
 # ==============================================================================
 #
-# Primary comparison: n_tagged (500 to 4000)
+# Primary comparison: n_tagged (500 to 2000)
 # Secondary: annual survival (10%, 20%, 30%)
-# Tertiary: p_efish (bad year, typical, good year)
+# Tertiary: p_efish (bad year, typical)
 # Prior toggle: informative vs vague detection priors
 #
-# Scenarios 1-6: informative priors (using pilot data)
-# Scenarios 7-9: vague priors on same baseline conditions
-#               -> shows how much pilot data improves precision
+# Scenarios 1-7: informative priors (using pilot data)
+# Scenarios 8, 10: vague priors -> shows how much pilot data improves precision
+# Dropped: scenario 4 (n=4000; computationally prohibitive, diminishing returns)
+#          scenario 9 (n=2000 vague; covered by scen 3 + scen 8 comparison)
 #
 # Scenario | n_tagged | phi_ann | p_efish | Priors       | Notes
 # ---------|----------|---------|---------|--------------|-------------------
 #    1     |    500   |   0.20  |  0.25   | informative  | small effort
 #    2     |   1000   |   0.20  |  0.25   | informative  | baseline
 #    3     |   2000   |   0.20  |  0.25   | informative  | 2x baseline
-#    4     |   4000   |   0.20  |  0.25   | informative  | near-max effort
 #    5     |   1000   |   0.10  |  0.25   | informative  | low survival
 #    6     |   1000   |   0.30  |  0.25   | informative  | higher survival
 #    7     |   1000   |   0.20  |  0.15   | informative  | poor efish year
 #    8     |   1000   |   0.20  |  0.25   | vague        | baseline, no pilot data
-#    9     |   2000   |   0.20  |  0.25   | vague        | 2x tags, no pilot data
 #   10     |   1000   |   0.10  |  0.25   | vague        | low survival, no pilot data
 
 scenarios <- tibble(
-  scenario            = 1:10,
-  n_tagged            = c( 500, 1000, 2000, 4000, 1000, 1000, 1000, 1000, 2000, 1000),
-  phi_annual          = c(0.20, 0.20, 0.20, 0.20, 0.10, 0.30, 0.20, 0.20, 0.20, 0.10),
-  p_efish_true_val    = c(0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.15, 0.25, 0.25, 0.25),
-  use_inform_priors   = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE),
+  scenario            = c(1, 2, 3, 5, 6, 7, 8, 10),
+  n_tagged            = c(500, 1000, 2000, 1000, 1000, 1000, 1000, 1000),
+  phi_annual          = c(0.20, 0.20, 0.20, 0.10, 0.30, 0.20, 0.20, 0.10),
+  p_efish_true_val    = c(0.25, 0.25, 0.25, 0.25, 0.25, 0.15, 0.25, 0.25),
+  use_inform_priors   = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE),
   label               = c(
     "500 tagged, inform. priors",
     "1000 tagged, inform. priors (baseline)",
     "2000 tagged, inform. priors",
-    "4000 tagged, inform. priors",
     "Low survival (10%), inform. priors",
     "Higher survival (30%), inform. priors",
     "Poor efish (p=0.15), inform. priors",
     "1000 tagged, VAGUE priors",
-    "2000 tagged, VAGUE priors",
     "Low survival (10%), VAGUE priors"
   )
 )
 
-n_reps <- 50
+n_reps <- 25
 
 
 # ==============================================================================
@@ -246,17 +243,26 @@ simulate_fish <- function(n_tagged, phi_trib, phi_main, phi_lower,
 out_list <- vector("list", nrow(scenarios))
 
 # Wrap one scenario into a function so future_map can distribute across workers
+# s = scenario VALUE (from scenarios$scenario), not row index
 run_scenario <- function(s) {
 
-  n_tagged  <- scenarios$n_tagged[s]
-  phi_occ   <- scenarios$phi_annual[s]^(1 / n_occ)
-  p_efish_s <- scenarios$p_efish_true_val[s]
-  priors    <- if(scenarios$use_inform_priors[s]) priors_informative else priors_vague
+  # Resume: if checkpoint exists from a previous run, skip and return saved results
+  ckpt_file <- here(paste0("checkpoint_scenario_", s, ".rds"))
+  if (file.exists(ckpt_file)) {
+    cat("Scenario", s, "already complete, loading checkpoint.\n")
+    return(readRDS(ckpt_file))
+  }
+
+  row       <- which(scenarios$scenario == s)
+  n_tagged  <- scenarios$n_tagged[row]
+  phi_occ   <- scenarios$phi_annual[row]^(1 / n_occ)
+  p_efish_s <- scenarios$p_efish_true_val[row]
+  priors    <- if(scenarios$use_inform_priors[row]) priors_informative else priors_vague
 
   out_tibble <- tibble(
     scenario      = s,
     n_tagged      = n_tagged,
-    use_inform    = scenarios$use_inform_priors[s],
+    use_inform    = scenarios$use_inform_priors[row],
     rep           = 1:n_reps,
     phi_trib_mean = NA_real_,  phi_trib_sd  = NA_real_,
     phi_main_mean = NA_real_,  phi_main_sd  = NA_real_,
@@ -357,7 +363,7 @@ run_scenario <- function(s) {
   } # end rep loop
 
   # Checkpoint: save after each scenario completes
-  saveRDS(out_tibble, here(paste0("checkpoint_scenario_", s, ".rds")))
+  saveRDS(out_tibble, ckpt_file)
   cat("Scenario", s, "complete.\n")
 
   out_tibble
@@ -365,7 +371,8 @@ run_scenario <- function(s) {
 
 # Run all scenarios in parallel across workers
 # With 10 cores and 3 chains/rep: 3 scenarios run simultaneously
-out_list <- future_map(1:nrow(scenarios), run_scenario,
+# Iterates over scenario VALUES so checkpoint names always match scenario numbers
+out_list <- future_map(scenarios$scenario, run_scenario,
                        .options = furrr_options(seed = TRUE))
 
 all_data <- bind_rows(out_list)
