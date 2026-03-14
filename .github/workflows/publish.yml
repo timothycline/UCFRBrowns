@@ -1,7 +1,5 @@
 on:
-  push:
-    branches: main
-  workflow_dispatch:
+  workflow_dispatch:  # manual trigger only — site is rendered locally and docs/ pushed
 
 name: Render and Publish
 

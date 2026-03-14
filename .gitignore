@@ -9,9 +9,6 @@
 *_cache/
 *_files/
 
-# Rendered output (built by GitHub Actions; do not commit locally)
-/docs/
-
 # OS artifacts
 .DS_Store
 Thumbs.db
