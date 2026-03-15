@@ -21,4 +21,4 @@ format:
     fig-height: 5
     fig-align: center
     df-print: kable
-    embed-resources: false
+    embed-resources: true
