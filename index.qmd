@@ -21,21 +21,20 @@ psi_main_back_true <- 0.04
 
 # Scenario reference table
 scenarios <- tibble(
-  scenario     = 1:10,
-  n_tagged     = c(500, 1000, 2000, 4000, 1000, 1000, 1000, 1000, 2000, 1000),
-  phi_annual   = c(0.20, 0.20, 0.20, 0.20, 0.10, 0.30, 0.20, 0.20, 0.20, 0.10),
-  p_efish_true = c(0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.15, 0.25, 0.25, 0.25),
-  use_inform   = c(rep(TRUE, 7), rep(FALSE, 3)),
+  scenario     = c(1, 2, 3, 5, 6, 7, 8, 10),
+  n_tagged     = c(500, 1000, 2000, 1000, 1000, 1000, 1000, 1000),
+  phi_annual   = c(0.20, 0.20, 0.20, 0.10, 0.30, 0.20, 0.20, 0.10),
+  p_efish_true = c(0.25, 0.25, 0.25, 0.25, 0.25, 0.15, 0.25, 0.25),
+  use_inform   = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE),
   label        = c(
-    "500 tagged",  "1000 tagged", "2000 tagged",  "4000 tagged",
+    "500 tagged",  "1000 tagged", "2000 tagged",
     "Low survival\n(10%)",  "Higher survival\n(30%)",  "Poor efish\n(p = 0.15)",
-    "1000 tagged\n(vague priors)", "2000 tagged\n(vague priors)",
-    "Low survival\n(vague priors)"
+    "1000 tagged\n(vague priors)", "Low survival\n(vague priors)"
   ),
   label_short = c(
-    "500", "1000", "2000", "4000",
+    "500", "1000", "2000",
     "Low φ", "High φ", "Low p_efish",
-    "1000 (vague)", "2000 (vague)", "Low φ (vague)"
+    "1000 (vague)", "Low φ (vague)"
   )
 ) |>
   mutate(phi_occ = phi_annual^(1 / n_occ))
@@ -212,7 +211,7 @@ The power analysis uses a **parametric bootstrap** design:
 1. Simulate a dataset under known true parameters
 2. Fit the JAGS model to the simulated data
 3. Record posterior means and SDs for key parameters
-4. Repeat 50 times per scenario
+4. Repeat 25 times per scenario
 5. Summarize bias, precision (posterior SD), and RMSE across replications
 
 Power is assessed by whether the posterior SD is small enough to distinguish
@@ -265,7 +264,7 @@ tibble(
 
 ```{r}
 #| label: tbl-scenarios
-#| tbl-cap: "Simulation scenarios. Scenarios 1–7 use informative detection priors from pilot data. Scenarios 8–10 repeat key conditions with vague priors to quantify the value of the pilot work."
+#| tbl-cap: "Simulation scenarios. Scenarios 1–7 use informative detection priors from pilot data. Scenarios 8 and 10 repeat key conditions with vague priors to quantify the value of the pilot work."
 #| echo: false
 
 scenarios |>
@@ -285,9 +284,9 @@ scenarios |>
   kbl(align = c("c", "r", "c", "c", "c", "c")) |>
   kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE) |>
   row_spec(0, bold = TRUE) |>
-  pack_rows("Vary sample size (baseline survival)", 1, 4) |>
-  pack_rows("Vary survival & detection (1000 fish)", 5, 7) |>
-  pack_rows("Vague priors — value of pilot data", 8, 10)
+  pack_rows("Vary sample size (baseline survival)", 1, 3) |>
+  pack_rows("Vary survival & detection (1000 fish)", 4, 6) |>
+  pack_rows("Vague priors — value of pilot data", 7, 8)
 ```
 
 ---
@@ -341,11 +340,11 @@ estimated. Smaller SD = tighter credible intervals = more confident conclusions.
 
 ```{r}
 #| label: fig-precision-ntag
-#| fig-cap: "Posterior SD for primary parameters across sample size scenarios (scenarios 1–4, informative priors, 20% annual survival). Horizontal blue lines show the true parameter value. Lower SD indicates better precision."
+#| fig-cap: "Posterior SD for primary parameters across sample size scenarios (scenarios 1–3, informative priors, 20% annual survival). Horizontal blue lines show the true parameter value. Lower SD indicates better precision."
 #| eval: !expr results_available
 
 plot_dat <- all_data |>
-  filter(scenario %in% 1:4) |>
+  filter(scenario %in% c(1, 2, 3)) |>
   select(scenario, n_tagged, label_short,
          `Trib survival\n(φ_trib)`       = phi_trib_sd,
          `Mainstem survival\n(φ_main)`   = phi_main_sd,
@@ -373,7 +372,7 @@ systematic over- or under-estimation.
 #| eval: !expr results_available
 
 bias_dat <- all_data |>
-  filter(scenario %in% 1:4) |>
+  filter(scenario %in% c(1, 2, 3)) |>
   select(scenario, n_tagged,
          `Mainstem survival\n(φ_main)`     = bias_phi_main,
          `Trib survival\n(φ_trib)`          = bias_phi_trib,
@@ -391,7 +390,7 @@ ggplot(bias_dat, aes(x = n_tagged, y = bias)) +
 
 ### Value of Pilot Detection Data (Prior Sensitivity)
 
-Scenarios 8–10 repeat baseline conditions with **vague** priors on detection
+Scenarios 8 and 10 repeat baseline conditions with **vague** priors on detection
 probabilities. Comparing these against matched informative-prior scenarios
 quantifies how much the 2023–2025 pilot antenna and electrofishing data are
 worth in terms of parameter precision.
