@@ -5046,7 +5046,7 @@ border: 0;
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>This document presents a simulation-based power analysis for a multi-year juvenile brown trout (<em>Salmo trutta</em>) survival study on the Upper Clark Fork River, Montana. The study uses PIT (Passive Integrated Transponder) tagging combined with stationary antenna arrays and electrofishing recapture surveys to estimate reach-specific survival and emigration dynamics.</p>
+<p>This document presents a simulation-based power analysis for a juvenile brown trout (<em>Salmo trutta</em>) survival study on the Upper Clark Fork River, Montana. The study uses PIT (Passive Integrated Transponder) tagging combined with stationary antenna arrays and electrofishing recapture surveys to estimate reach-specific survival and emigration dynamics.</p>
 <p><strong>Core scientific questions:</strong></p>
 <ol type="1">
 <li>Is survival of juvenile brown trout in the mainstem low enough to be a demographic bottleneck?</li>
@@ -5059,7 +5059,7 @@ border: 0;
 <h2 class="anchored" data-anchor-id="study-system">Study System</h2>
 <section id="spatial-layout" class="level3">
 <h3 class="anchored" data-anchor-id="spatial-layout">Spatial Layout</h3>
-<p>The monitoring network spans approximately 22 river miles of the upper Clark Fork, anchored by three mainstem PIT antenna arrays and three tributary mouth antennas.</p>
+<p>The monitoring network spans approximately 20 river miles of the upper Clark Fork, anchored by three mainstem PIT antenna arrays and three tributary mouth antennas.</p>
 <div class="cell" data-fig-width="9">
 <div class="cell-output-display">
 <div>
@@ -5096,7 +5096,7 @@ border: 0;
 </section>
 <section id="antenna-design-and-detection-efficiency" class="level3">
 <h3 class="anchored" data-anchor-id="antenna-design-and-detection-efficiency">Antenna Design and Detection Efficiency</h3>
-<p>All antenna detections are <strong>transition-based</strong>: an antenna fires only when a fish physically crosses that boundary. This is a critical design feature — the Gembeck + Sager antenna pair constitutes a <strong>double-observer system</strong> for downstream emigrants, allowing detection efficiency at Gembeck to be estimated from the data rather than assumed.</p>
+<p>All antenna detections are transition-based. The Gembeck + Sager antenna pair constitutes a double-observer system for downstream emigrants, allowing detection efficiency at Gembeck to be estimated from the data rather than assumed.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-antennas" class="anchored">
@@ -5190,7 +5190,7 @@ border: 0;
 </tr>
 </tbody>
 </table>
-<p>Toggling between prior types requires only a change in the data passed to JAGS — the model file itself is unchanged.</p>
+<p>Toggling between prior types requires only a change in the data passed to JAGS.</p>
 </section>
 <section id="jags-model" class="level3">
 <h3 class="anchored" data-anchor-id="jags-model">JAGS Model</h3>
@@ -5382,7 +5382,7 @@ border: 0;
 <li>Repeat 25 times per scenario</li>
 <li>Summarize bias, precision (posterior SD), and RMSE across replications</li>
 </ol>
-<p>Power is assessed by whether the posterior SD is small enough to distinguish biologically meaningful differences — not a formal hypothesis test.</p>
+<p>Power is assessed by whether the posterior SD is small enough to distinguish biologically meaningful differences.</p>
 </section>
 <section id="true-parameter-values" class="level3">
 <h3 class="anchored" data-anchor-id="true-parameter-values">True Parameter Values</h3>
@@ -5402,7 +5402,7 @@ border: 0;
 <tr class="odd">
 <td style="text-align: left;">φ_trib, φ_main, φ_lower (per occasion, baseline)</td>
 <td style="text-align: center;">0.20^(1/5) = 0.725</td>
-<td style="text-align: left;">Colleague email (10–30% annual range)</td>
+<td style="text-align: left;">Professional judement (10–30% annual range)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ψ_trib→main (emigrate from trib per occasion)</td>
@@ -5427,7 +5427,7 @@ border: 0;
 <tr class="even">
 <td style="text-align: left;">ψ_sager (pass Sager given alive in state 3)</td>
 <td style="text-align: center;">0.40</td>
-<td style="text-align: left;">Expected high for downstream section</td>
+<td style="text-align: left;">Expected higher for downstream section</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">p_trib (trib antenna)</td>
@@ -5656,7 +5656,7 @@ border: 0;
 </div>
 <section id="precision-by-sample-size" class="level3">
 <h3 class="anchored" data-anchor-id="precision-by-sample-size">Precision by Sample Size</h3>
-<p>Posterior standard deviation (SD) measures how precisely each parameter is estimated. Smaller SD = tighter credible intervals = more confident conclusions.</p>
+<p>Posterior standard deviation (SD) measures how precisely each parameter is estimated. Smaller SD = tighter credible intervals.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -5909,7 +5909,6 @@ border: 0;
 <section id="recommendations" class="level2">
 <h2 class="anchored" data-anchor-id="recommendations">Recommendations</h2>
 <p>Based on 62% MCMC convergence and a mean posterior SD of <strong>0.039</strong> for mainstem survival and <strong>0.012</strong> for downstream emigration probability at the 1,000-fish baseline scenario, the following recommendations apply:</p>
-<p>Regardless of simulation outcome, the following structural conclusions hold:</p>
 <dl>
 <dt><strong>Minimum recommended tagging effort: 1,000 fish</strong></dt>
 <dd>
@@ -5921,7 +5920,7 @@ Achievable within the spring electrofishing + screw trap design (pilot estimate:
 </dd>
 <dt><strong>Value of pilot detection data</strong></dt>
 <dd>
-Informative priors on detection probabilities (from the 2023–2025 pilot work) materially improve estimation of downstream emigration and Gembeck detection efficiency. The pilot data are load-bearing — vague priors produce noticeably wider posteriors, particularly when survival is low and few fish are available at each antenna.
+Informative priors on detection probabilities (from the 2023–2025 pilot work) materially improve estimation of downstream emigration and Gembeck detection efficiency. Vague priors produce noticeably wider posteriors, particularly when survival is low and few fish are available at each antenna.
 </dd>
 <dt><strong>Primary study reach: Warm Springs to Gembeck Rd</strong></dt>
 <dd>
@@ -6675,7 +6674,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overview</span></span>
 <span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>This document presents a simulation-based power analysis for a multi-year juvenile</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>This document presents a simulation-based power analysis for a juvenile</span>
 <span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>brown trout (*Salmo trutta*) survival study on the Upper Clark Fork River, Montana.</span>
 <span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>The study uses PIT (Passive Integrated Transponder) tagging combined with stationary</span>
 <span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>antenna arrays and electrofishing recapture surveys to estimate reach-specific</span>
@@ -6697,7 +6696,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="fu">### Spatial Layout</span></span>
 <span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>The monitoring network spans approximately 22 river miles of the upper Clark Fork,</span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>The monitoring network spans approximately 20 river miles of the upper Clark Fork,</span>
 <span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>anchored by three mainstem PIT antenna arrays and three tributary mouth antennas.</span>
 <span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
@@ -6731,411 +6730,408 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a><span class="fu">### Antenna Design and Detection Efficiency</span></span>
 <span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>All antenna detections are **transition-based**: an antenna fires only when a fish</span>
-<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>physically crosses that boundary. This is a critical design feature — the</span>
-<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a>Gembeck + Sager antenna pair constitutes a **double-observer system** for</span>
-<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a>downstream emigrants, allowing detection efficiency at Gembeck to be estimated</span>
-<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a>from the data rather than assumed.</span>
-<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-antennas</span></span>
-<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: &quot;Monitoring infrastructure and pilot-estimated detection probabilities.&quot;</span></span>
-<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a>  <span class="at">Location          =</span> <span class="fu">c</span>(<span class="st">&quot;Trib 1, 2, 3 mouth antennas&quot;</span>, <span class="st">&quot;Warm Springs (mainstem)&quot;</span>,</span>
-<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Gembeck Rd (mainstem)&quot;</span>, <span class="st">&quot;Sager Ln (mainstem)&quot;</span>,</span>
-<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Electrofishing (mainstem)&quot;</span>),</span>
-<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a>  <span class="at">Type              =</span> <span class="fu">c</span>(<span class="st">&quot;Passive PIT&quot;</span>, <span class="st">&quot;Passive PIT&quot;</span>, <span class="st">&quot;Passive PIT&quot;</span>,</span>
-<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Passive PIT&quot;</span>, <span class="st">&quot;Active recapture&quot;</span>),</span>
-<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Detection model</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Transition: states 1 ↔ 2&quot;</span>, <span class="st">&quot;Transition: state 2 → 5&quot;</span>,</span>
-<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Transition: state 2 → 3&quot;</span>, <span class="st">&quot;Transition: state 3 → 4&quot;</span>,</span>
-<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Proximity: state 2&quot;</span>),</span>
-<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Pilot estimate</span><span class="st">`</span>  <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;0.93&quot;</span>, <span class="st">&quot;0.76 (assumed)&quot;</span>, <span class="st">&quot;0.76&quot;</span>, <span class="st">&quot;0.76 (assumed)&quot;</span>, <span class="st">&quot;0.15 – 0.35&quot;</span>)</span>
-<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>), <span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a><span class="fu">## Statistical Model</span></span>
-<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hidden Markov Model Structure</span></span>
-<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a>Fish fate is modeled as a Hidden Markov Model (HMM) in which the true state</span>
-<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a>$z_{i,t}$ (alive in a given reach, or dead) evolves according to a Markov</span>
-<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a>transition matrix and is observed imperfectly through the antenna and</span>
-<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a>electrofishing detection process.</span>
-<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a>At each occasion $t$, the state of fish $i$ evolves as:</span>
-<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a>$$z_{i,t} \sim \text{Categorical}(\mathbf{T}_{z_{i,t-1},\cdot})$$</span>
-<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a>where $\mathbf{T}$ is the $6 \times 6$ transition matrix parameterized by</span>
-<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a>reach-specific survival ($\phi$) and movement probabilities ($\psi$). The</span>
-<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a>initial state $z_{i,1}$ is known from the tagging location.</span>
-<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a><span class="fu">### Transition Matrix</span></span>
-<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a>Movement from the primary study area (state 2) uses a Dirichlet parameterization</span>
-<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a>to ensure that the three directional probabilities (return to trib, downstream,</span>
-<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a>upstream) sum to $\leq 1$:</span>
-<span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-182"><a href="#cb7-182" aria-hidden="true" tabindex="-1"></a>$$\psi_{\text{back}}, \psi_{\text{down}}, \psi_{\text{up}} = \psi_{\text{move}} \times \text{Dir}(\alpha_1, \alpha_2, \alpha_3)$$</span>
-<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a><span class="fu">### Detection Priors</span></span>
-<span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-186"><a href="#cb7-186" aria-hidden="true" tabindex="-1"></a>Detection probability priors are **logit-normal**, centered on pilot estimates</span>
-<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a>when informative priors are requested:</span>
-<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a>$$\text{logit}(p) \sim \mathcal{N}(\mu, \sigma^2)$$</span>
-<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-191"><a href="#cb7-191" aria-hidden="true" tabindex="-1"></a>| Prior type | $\mu$ | $\sigma$ (logit scale) |</span>
-<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a>|---|---|---|</span>
-<span id="cb7-193"><a href="#cb7-193" aria-hidden="true" tabindex="-1"></a>| Informative | $\text{logit}(\hat{p}_\text{pilot})$ | 0.30 |</span>
-<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a>| Vague | 0 | 5.00 |</span>
-<span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a>Toggling between prior types requires only a change in the data passed to JAGS —</span>
-<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a>the model file itself is unchanged.</span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>All antenna detections are transition-based. The</span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>Gembeck + Sager antenna pair constitutes a double-observer system for</span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a>downstream emigrants, allowing detection efficiency at Gembeck to be estimated</span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a>from the data rather than assumed.</span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-antennas</span></span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: &quot;Monitoring infrastructure and pilot-estimated detection probabilities.&quot;</span></span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a>  <span class="at">Location          =</span> <span class="fu">c</span>(<span class="st">&quot;Trib 1, 2, 3 mouth antennas&quot;</span>, <span class="st">&quot;Warm Springs (mainstem)&quot;</span>,</span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Gembeck Rd (mainstem)&quot;</span>, <span class="st">&quot;Sager Ln (mainstem)&quot;</span>,</span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Electrofishing (mainstem)&quot;</span>),</span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a>  <span class="at">Type              =</span> <span class="fu">c</span>(<span class="st">&quot;Passive PIT&quot;</span>, <span class="st">&quot;Passive PIT&quot;</span>, <span class="st">&quot;Passive PIT&quot;</span>,</span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Passive PIT&quot;</span>, <span class="st">&quot;Active recapture&quot;</span>),</span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Detection model</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Transition: states 1 ↔ 2&quot;</span>, <span class="st">&quot;Transition: state 2 → 5&quot;</span>,</span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Transition: state 2 → 3&quot;</span>, <span class="st">&quot;Transition: state 3 → 4&quot;</span>,</span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Proximity: state 2&quot;</span>),</span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Pilot estimate</span><span class="st">`</span>  <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;0.93&quot;</span>, <span class="st">&quot;0.76 (assumed)&quot;</span>, <span class="st">&quot;0.76&quot;</span>, <span class="st">&quot;0.76 (assumed)&quot;</span>, <span class="st">&quot;0.15 – 0.35&quot;</span>)</span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>), <span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a><span class="fu">## Statistical Model</span></span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hidden Markov Model Structure</span></span>
+<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a>Fish fate is modeled as a Hidden Markov Model (HMM) in which the true state</span>
+<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a>$z_{i,t}$ (alive in a given reach, or dead) evolves according to a Markov</span>
+<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a>transition matrix and is observed imperfectly through the antenna and</span>
+<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a>electrofishing detection process.</span>
+<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a>At each occasion $t$, the state of fish $i$ evolves as:</span>
+<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a>$$z_{i,t} \sim \text{Categorical}(\mathbf{T}_{z_{i,t-1},\cdot})$$</span>
+<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a>where $\mathbf{T}$ is the $6 \times 6$ transition matrix parameterized by</span>
+<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a>reach-specific survival ($\phi$) and movement probabilities ($\psi$). The</span>
+<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a>initial state $z_{i,1}$ is known from the tagging location.</span>
+<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a><span class="fu">### Transition Matrix</span></span>
+<span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a>Movement from the primary study area (state 2) uses a Dirichlet parameterization</span>
+<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a>to ensure that the three directional probabilities (return to trib, downstream,</span>
+<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a>upstream) sum to $\leq 1$:</span>
+<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a>$$\psi_{\text{back}}, \psi_{\text{down}}, \psi_{\text{up}} = \psi_{\text{move}} \times \text{Dir}(\alpha_1, \alpha_2, \alpha_3)$$</span>
+<span id="cb7-182"><a href="#cb7-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a><span class="fu">### Detection Priors</span></span>
+<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a>Detection probability priors are **logit-normal**, centered on pilot estimates</span>
+<span id="cb7-186"><a href="#cb7-186" aria-hidden="true" tabindex="-1"></a>when informative priors are requested:</span>
+<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a>$$\text{logit}(p) \sim \mathcal{N}(\mu, \sigma^2)$$</span>
+<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a>| Prior type | $\mu$ | $\sigma$ (logit scale) |</span>
+<span id="cb7-191"><a href="#cb7-191" aria-hidden="true" tabindex="-1"></a>|---|---|---|</span>
+<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a>| Informative | $\text{logit}(\hat{p}_\text{pilot})$ | 0.30 |</span>
+<span id="cb7-193"><a href="#cb7-193" aria-hidden="true" tabindex="-1"></a>| Vague | 0 | 5.00 |</span>
+<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a>Toggling between prior types requires only a change in the data passed to JAGS.</span>
+<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a><span class="fu">### JAGS Model</span></span>
 <span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a><span class="fu">### JAGS Model</span></span>
-<span id="cb7-200"><a href="#cb7-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-204"><a href="#cb7-204" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: jags-model</span></span>
-<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb7-206"><a href="#cb7-206" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb7-208"><a href="#cb7-208" aria-hidden="true" tabindex="-1"></a><span class="co">#| file: survival_CFBrown.txt</span></span>
-<span id="cb7-209"><a href="#cb7-209" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-202"><a href="#cb7-202" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: jags-model</span></span>
+<span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb7-204"><a href="#cb7-204" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb7-206"><a href="#cb7-206" aria-hidden="true" tabindex="-1"></a><span class="co">#| file: survival_CFBrown.txt</span></span>
+<span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-208"><a href="#cb7-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-209"><a href="#cb7-209" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb7-210"><a href="#cb7-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-211"><a href="#cb7-211" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb7-211"><a href="#cb7-211" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simulation Design</span></span>
 <span id="cb7-212"><a href="#cb7-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-213"><a href="#cb7-213" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simulation Design</span></span>
+<span id="cb7-213"><a href="#cb7-213" aria-hidden="true" tabindex="-1"></a><span class="fu">### Approach</span></span>
 <span id="cb7-214"><a href="#cb7-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-215"><a href="#cb7-215" aria-hidden="true" tabindex="-1"></a><span class="fu">### Approach</span></span>
+<span id="cb7-215"><a href="#cb7-215" aria-hidden="true" tabindex="-1"></a>The power analysis uses a **parametric bootstrap** design:</span>
 <span id="cb7-216"><a href="#cb7-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-217"><a href="#cb7-217" aria-hidden="true" tabindex="-1"></a>The power analysis uses a **parametric bootstrap** design:</span>
-<span id="cb7-218"><a href="#cb7-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-219"><a href="#cb7-219" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Simulate a dataset under known true parameters</span>
-<span id="cb7-220"><a href="#cb7-220" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Fit the JAGS model to the simulated data</span>
-<span id="cb7-221"><a href="#cb7-221" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Record posterior means and SDs for key parameters</span>
-<span id="cb7-222"><a href="#cb7-222" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Repeat 25 times per scenario</span>
-<span id="cb7-223"><a href="#cb7-223" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Summarize bias, precision (posterior SD), and RMSE across replications</span>
-<span id="cb7-224"><a href="#cb7-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-225"><a href="#cb7-225" aria-hidden="true" tabindex="-1"></a>Power is assessed by whether the posterior SD is small enough to distinguish</span>
-<span id="cb7-226"><a href="#cb7-226" aria-hidden="true" tabindex="-1"></a>biologically meaningful differences — not a formal hypothesis test.</span>
+<span id="cb7-217"><a href="#cb7-217" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Simulate a dataset under known true parameters</span>
+<span id="cb7-218"><a href="#cb7-218" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Fit the JAGS model to the simulated data</span>
+<span id="cb7-219"><a href="#cb7-219" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Record posterior means and SDs for key parameters</span>
+<span id="cb7-220"><a href="#cb7-220" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Repeat 25 times per scenario</span>
+<span id="cb7-221"><a href="#cb7-221" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Summarize bias, precision (posterior SD), and RMSE across replications</span>
+<span id="cb7-222"><a href="#cb7-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-223"><a href="#cb7-223" aria-hidden="true" tabindex="-1"></a>Power is assessed by whether the posterior SD is small enough to distinguish</span>
+<span id="cb7-224"><a href="#cb7-224" aria-hidden="true" tabindex="-1"></a>biologically meaningful differences.</span>
+<span id="cb7-225"><a href="#cb7-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-226"><a href="#cb7-226" aria-hidden="true" tabindex="-1"></a><span class="fu">### True Parameter Values</span></span>
 <span id="cb7-227"><a href="#cb7-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-228"><a href="#cb7-228" aria-hidden="true" tabindex="-1"></a><span class="fu">### True Parameter Values</span></span>
-<span id="cb7-229"><a href="#cb7-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-232"><a href="#cb7-232" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-233"><a href="#cb7-233" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-params</span></span>
-<span id="cb7-234"><a href="#cb7-234" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: &quot;True parameter values used in all simulations (baseline survival scenario). Annual survival is converted to per-occasion survival as φ^(1/5).&quot;</span></span>
-<span id="cb7-235"><a href="#cb7-235" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb7-236"><a href="#cb7-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-237"><a href="#cb7-237" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb7-238"><a href="#cb7-238" aria-hidden="true" tabindex="-1"></a>  <span class="at">Parameter =</span> <span class="fu">c</span>(</span>
-<span id="cb7-239"><a href="#cb7-239" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;φ_trib, φ_main, φ_lower (per occasion, baseline)&quot;</span>,</span>
-<span id="cb7-240"><a href="#cb7-240" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ψ_trib→main (emigrate from trib per occasion)&quot;</span>,</span>
-<span id="cb7-241"><a href="#cb7-241" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ψ_main→trib (return to trib per occasion)&quot;</span>,</span>
-<span id="cb7-242"><a href="#cb7-242" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ψ_main→downstream (past Gembeck per occasion)&quot;</span>,</span>
-<span id="cb7-243"><a href="#cb7-243" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ψ_main→upstream (past WS per occasion)&quot;</span>,</span>
-<span id="cb7-244"><a href="#cb7-244" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ψ_sager (pass Sager given alive in state 3)&quot;</span>,</span>
-<span id="cb7-245"><a href="#cb7-245" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;p_trib (trib antenna)&quot;</span>,</span>
-<span id="cb7-246"><a href="#cb7-246" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;p_gem (Gembeck antenna)&quot;</span>,</span>
-<span id="cb7-247"><a href="#cb7-247" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;p_ws, p_sag (WS, Sager antennas)&quot;</span>,</span>
-<span id="cb7-248"><a href="#cb7-248" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;p_efish (electrofishing, baseline)&quot;</span></span>
-<span id="cb7-249"><a href="#cb7-249" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb7-250"><a href="#cb7-250" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">True value</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
-<span id="cb7-251"><a href="#cb7-251" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;0.20^(1/5) = 0.725&quot;</span>,</span>
-<span id="cb7-252"><a href="#cb7-252" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;0.06&quot;</span>,  <span class="st">&quot;0.04&quot;</span>,  <span class="st">&quot;0.04&quot;</span>, <span class="st">&quot;0.01&quot;</span>,  <span class="st">&quot;0.40&quot;</span>,</span>
-<span id="cb7-253"><a href="#cb7-253" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;0.93&quot;</span>,  <span class="st">&quot;0.76&quot;</span>,  <span class="st">&quot;0.76&quot;</span>, <span class="st">&quot;0.25&quot;</span></span>
-<span id="cb7-254"><a href="#cb7-254" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb7-255"><a href="#cb7-255" aria-hidden="true" tabindex="-1"></a>  <span class="at">Source =</span> <span class="fu">c</span>(</span>
-<span id="cb7-256"><a href="#cb7-256" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Colleague email (10–30% annual range)&quot;</span>,</span>
+<span id="cb7-230"><a href="#cb7-230" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-231"><a href="#cb7-231" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-params</span></span>
+<span id="cb7-232"><a href="#cb7-232" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: &quot;True parameter values used in all simulations (baseline survival scenario). Annual survival is converted to per-occasion survival as φ^(1/5).&quot;</span></span>
+<span id="cb7-233"><a href="#cb7-233" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb7-234"><a href="#cb7-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-235"><a href="#cb7-235" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb7-236"><a href="#cb7-236" aria-hidden="true" tabindex="-1"></a>  <span class="at">Parameter =</span> <span class="fu">c</span>(</span>
+<span id="cb7-237"><a href="#cb7-237" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;φ_trib, φ_main, φ_lower (per occasion, baseline)&quot;</span>,</span>
+<span id="cb7-238"><a href="#cb7-238" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ψ_trib→main (emigrate from trib per occasion)&quot;</span>,</span>
+<span id="cb7-239"><a href="#cb7-239" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ψ_main→trib (return to trib per occasion)&quot;</span>,</span>
+<span id="cb7-240"><a href="#cb7-240" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ψ_main→downstream (past Gembeck per occasion)&quot;</span>,</span>
+<span id="cb7-241"><a href="#cb7-241" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ψ_main→upstream (past WS per occasion)&quot;</span>,</span>
+<span id="cb7-242"><a href="#cb7-242" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ψ_sager (pass Sager given alive in state 3)&quot;</span>,</span>
+<span id="cb7-243"><a href="#cb7-243" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;p_trib (trib antenna)&quot;</span>,</span>
+<span id="cb7-244"><a href="#cb7-244" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;p_gem (Gembeck antenna)&quot;</span>,</span>
+<span id="cb7-245"><a href="#cb7-245" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;p_ws, p_sag (WS, Sager antennas)&quot;</span>,</span>
+<span id="cb7-246"><a href="#cb7-246" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;p_efish (electrofishing, baseline)&quot;</span></span>
+<span id="cb7-247"><a href="#cb7-247" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb7-248"><a href="#cb7-248" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">True value</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb7-249"><a href="#cb7-249" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;0.20^(1/5) = 0.725&quot;</span>,</span>
+<span id="cb7-250"><a href="#cb7-250" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;0.06&quot;</span>,  <span class="st">&quot;0.04&quot;</span>,  <span class="st">&quot;0.04&quot;</span>, <span class="st">&quot;0.01&quot;</span>,  <span class="st">&quot;0.40&quot;</span>,</span>
+<span id="cb7-251"><a href="#cb7-251" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;0.93&quot;</span>,  <span class="st">&quot;0.76&quot;</span>,  <span class="st">&quot;0.76&quot;</span>, <span class="st">&quot;0.25&quot;</span></span>
+<span id="cb7-252"><a href="#cb7-252" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb7-253"><a href="#cb7-253" aria-hidden="true" tabindex="-1"></a>  <span class="at">Source =</span> <span class="fu">c</span>(</span>
+<span id="cb7-254"><a href="#cb7-254" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Professional judement (10–30% annual range)&quot;</span>,</span>
+<span id="cb7-255"><a href="#cb7-255" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Derived from 11–15% total emigration&quot;</span>,</span>
+<span id="cb7-256"><a href="#cb7-256" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Professional judgment&quot;</span>,</span>
 <span id="cb7-257"><a href="#cb7-257" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Derived from 11–15% total emigration&quot;</span>,</span>
-<span id="cb7-258"><a href="#cb7-258" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Professional judgment&quot;</span>,</span>
-<span id="cb7-259"><a href="#cb7-259" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Derived from 11–15% total emigration&quot;</span>,</span>
-<span id="cb7-260"><a href="#cb7-260" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Low; WS antenna as upstream sentinel&quot;</span>,</span>
-<span id="cb7-261"><a href="#cb7-261" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Expected high for downstream section&quot;</span>,</span>
-<span id="cb7-262"><a href="#cb7-262" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Pilot antenna data (2024–2025)&quot;</span>,</span>
-<span id="cb7-263"><a href="#cb7-263" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Pilot antenna data (2024–2025)&quot;</span>,</span>
-<span id="cb7-264"><a href="#cb7-264" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Assumed equal to Gembeck estimate&quot;</span>,</span>
-<span id="cb7-265"><a href="#cb7-265" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Pilot electrofishing (2024–2025)&quot;</span></span>
-<span id="cb7-266"><a href="#cb7-266" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb7-267"><a href="#cb7-267" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb7-268"><a href="#cb7-268" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;l&quot;</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb7-269"><a href="#cb7-269" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>), <span class="at">full_width =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-270"><a href="#cb7-270" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb7-271"><a href="#cb7-271" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-258"><a href="#cb7-258" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Low; WS antenna as upstream sentinel&quot;</span>,</span>
+<span id="cb7-259"><a href="#cb7-259" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Expected higher for downstream section&quot;</span>,</span>
+<span id="cb7-260"><a href="#cb7-260" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Pilot antenna data (2024–2025)&quot;</span>,</span>
+<span id="cb7-261"><a href="#cb7-261" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Pilot antenna data (2024–2025)&quot;</span>,</span>
+<span id="cb7-262"><a href="#cb7-262" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Assumed equal to Gembeck estimate&quot;</span>,</span>
+<span id="cb7-263"><a href="#cb7-263" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Pilot electrofishing (2024–2025)&quot;</span></span>
+<span id="cb7-264"><a href="#cb7-264" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-265"><a href="#cb7-265" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb7-266"><a href="#cb7-266" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;l&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-267"><a href="#cb7-267" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>), <span class="at">full_width =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-268"><a href="#cb7-268" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-269"><a href="#cb7-269" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-270"><a href="#cb7-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-271"><a href="#cb7-271" aria-hidden="true" tabindex="-1"></a><span class="fu">### Scenarios</span></span>
 <span id="cb7-272"><a href="#cb7-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-273"><a href="#cb7-273" aria-hidden="true" tabindex="-1"></a><span class="fu">### Scenarios</span></span>
-<span id="cb7-274"><a href="#cb7-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-277"><a href="#cb7-277" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-278"><a href="#cb7-278" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-scenarios</span></span>
-<span id="cb7-279"><a href="#cb7-279" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: &quot;Simulation scenarios. Scenarios 1–7 use informative detection priors from pilot data. Scenarios 8 and 10 repeat key conditions with vague priors to quantify the value of the pilot work.&quot;</span></span>
-<span id="cb7-280"><a href="#cb7-280" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb7-281"><a href="#cb7-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-282"><a href="#cb7-282" aria-hidden="true" tabindex="-1"></a>scenarios <span class="sc">|&gt;</span></span>
-<span id="cb7-283"><a href="#cb7-283" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scenario, n_tagged, phi_annual, p_efish_true, use_inform) <span class="sc">|&gt;</span></span>
-<span id="cb7-284"><a href="#cb7-284" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb7-285"><a href="#cb7-285" aria-hidden="true" tabindex="-1"></a>    <span class="at">phi_occ    =</span> <span class="fu">round</span>(phi_annual<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>), <span class="dv">3</span>),</span>
-<span id="cb7-286"><a href="#cb7-286" aria-hidden="true" tabindex="-1"></a>    <span class="at">use_inform =</span> <span class="fu">if_else</span>(use_inform, <span class="st">&quot;Informative&quot;</span>, <span class="st">&quot;Vague&quot;</span>)</span>
-<span id="cb7-287"><a href="#cb7-287" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb7-288"><a href="#cb7-288" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
-<span id="cb7-289"><a href="#cb7-289" aria-hidden="true" tabindex="-1"></a>    <span class="at">Scenario      =</span> scenario,</span>
-<span id="cb7-290"><a href="#cb7-290" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">N tagged</span><span class="st">`</span>    <span class="ot">=</span> n_tagged,</span>
-<span id="cb7-291"><a href="#cb7-291" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">φ (annual)</span><span class="st">`</span>  <span class="ot">=</span> phi_annual,</span>
-<span id="cb7-292"><a href="#cb7-292" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">φ (per occ)</span><span class="st">`</span> <span class="ot">=</span> phi_occ,</span>
-<span id="cb7-293"><a href="#cb7-293" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">p_efish</span><span class="st">`</span>     <span class="ot">=</span> p_efish_true,</span>
-<span id="cb7-294"><a href="#cb7-294" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Det. priors</span><span class="st">`</span> <span class="ot">=</span> use_inform</span>
-<span id="cb7-295"><a href="#cb7-295" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb7-296"><a href="#cb7-296" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb7-297"><a href="#cb7-297" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>), <span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-298"><a href="#cb7-298" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-299"><a href="#cb7-299" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">&quot;Vary sample size (baseline survival)&quot;</span>, <span class="dv">1</span>, <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-300"><a href="#cb7-300" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">&quot;Vary survival &amp; detection (1000 fish)&quot;</span>, <span class="dv">4</span>, <span class="dv">6</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-301"><a href="#cb7-301" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">&quot;Vague priors — value of pilot data&quot;</span>, <span class="dv">7</span>, <span class="dv">8</span>)</span>
-<span id="cb7-302"><a href="#cb7-302" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-275"><a href="#cb7-275" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-276"><a href="#cb7-276" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-scenarios</span></span>
+<span id="cb7-277"><a href="#cb7-277" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: &quot;Simulation scenarios. Scenarios 1–7 use informative detection priors from pilot data. Scenarios 8 and 10 repeat key conditions with vague priors to quantify the value of the pilot work.&quot;</span></span>
+<span id="cb7-278"><a href="#cb7-278" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb7-279"><a href="#cb7-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-280"><a href="#cb7-280" aria-hidden="true" tabindex="-1"></a>scenarios <span class="sc">|&gt;</span></span>
+<span id="cb7-281"><a href="#cb7-281" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scenario, n_tagged, phi_annual, p_efish_true, use_inform) <span class="sc">|&gt;</span></span>
+<span id="cb7-282"><a href="#cb7-282" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-283"><a href="#cb7-283" aria-hidden="true" tabindex="-1"></a>    <span class="at">phi_occ    =</span> <span class="fu">round</span>(phi_annual<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>), <span class="dv">3</span>),</span>
+<span id="cb7-284"><a href="#cb7-284" aria-hidden="true" tabindex="-1"></a>    <span class="at">use_inform =</span> <span class="fu">if_else</span>(use_inform, <span class="st">&quot;Informative&quot;</span>, <span class="st">&quot;Vague&quot;</span>)</span>
+<span id="cb7-285"><a href="#cb7-285" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb7-286"><a href="#cb7-286" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb7-287"><a href="#cb7-287" aria-hidden="true" tabindex="-1"></a>    <span class="at">Scenario      =</span> scenario,</span>
+<span id="cb7-288"><a href="#cb7-288" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">N tagged</span><span class="st">`</span>    <span class="ot">=</span> n_tagged,</span>
+<span id="cb7-289"><a href="#cb7-289" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">φ (annual)</span><span class="st">`</span>  <span class="ot">=</span> phi_annual,</span>
+<span id="cb7-290"><a href="#cb7-290" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">φ (per occ)</span><span class="st">`</span> <span class="ot">=</span> phi_occ,</span>
+<span id="cb7-291"><a href="#cb7-291" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">p_efish</span><span class="st">`</span>     <span class="ot">=</span> p_efish_true,</span>
+<span id="cb7-292"><a href="#cb7-292" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Det. priors</span><span class="st">`</span> <span class="ot">=</span> use_inform</span>
+<span id="cb7-293"><a href="#cb7-293" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb7-294"><a href="#cb7-294" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-295"><a href="#cb7-295" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>), <span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-296"><a href="#cb7-296" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-297"><a href="#cb7-297" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">&quot;Vary sample size (baseline survival)&quot;</span>, <span class="dv">1</span>, <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-298"><a href="#cb7-298" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">&quot;Vary survival &amp; detection (1000 fish)&quot;</span>, <span class="dv">4</span>, <span class="dv">6</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-299"><a href="#cb7-299" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">&quot;Vague priors — value of pilot data&quot;</span>, <span class="dv">7</span>, <span class="dv">8</span>)</span>
+<span id="cb7-300"><a href="#cb7-300" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-301"><a href="#cb7-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-302"><a href="#cb7-302" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb7-303"><a href="#cb7-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-304"><a href="#cb7-304" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb7-304"><a href="#cb7-304" aria-hidden="true" tabindex="-1"></a><span class="fu">## Results</span></span>
 <span id="cb7-305"><a href="#cb7-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-306"><a href="#cb7-306" aria-hidden="true" tabindex="-1"></a><span class="fu">## Results</span></span>
-<span id="cb7-307"><a href="#cb7-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-310"><a href="#cb7-310" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-311"><a href="#cb7-311" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: results-check</span></span>
-<span id="cb7-312"><a href="#cb7-312" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb7-313"><a href="#cb7-313" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
-<span id="cb7-314"><a href="#cb7-314" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-315"><a href="#cb7-315" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span>results_available) {</span>
-<span id="cb7-316"><a href="#cb7-316" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;&gt; **Results pending.** The simulation output file</span></span>
-<span id="cb7-317"><a href="#cb7-317" aria-hidden="true" tabindex="-1"></a><span class="st">  (`simulation_output_CFBrown.rds`) has not yet been committed to the</span></span>
-<span id="cb7-318"><a href="#cb7-318" aria-hidden="true" tabindex="-1"></a><span class="st">  repository. Once the overnight JAGS run completes and the output is pushed</span></span>
-<span id="cb7-319"><a href="#cb7-319" aria-hidden="true" tabindex="-1"></a><span class="st">  to GitHub, this section will render automatically on the next Actions run.&quot;</span>)</span>
-<span id="cb7-320"><a href="#cb7-320" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-321"><a href="#cb7-321" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-322"><a href="#cb7-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-325"><a href="#cb7-325" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-326"><a href="#cb7-326" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: convergence-summary</span></span>
-<span id="cb7-327"><a href="#cb7-327" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb7-328"><a href="#cb7-328" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: !expr results_available</span></span>
-<span id="cb7-329"><a href="#cb7-329" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: &quot;Convergence summary by scenario (Rhat &lt; 1.1 for all monitored parameters).&quot;</span></span>
-<span id="cb7-330"><a href="#cb7-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-331"><a href="#cb7-331" aria-hidden="true" tabindex="-1"></a>conv_summary <span class="ot">&lt;-</span> all_data <span class="sc">|&gt;</span></span>
-<span id="cb7-332"><a href="#cb7-332" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(scenario, label_short, n_tagged, phi_annual, use_inform) <span class="sc">|&gt;</span></span>
-<span id="cb7-333"><a href="#cb7-333" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb7-334"><a href="#cb7-334" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_reps      =</span> <span class="fu">n</span>(),</span>
-<span id="cb7-335"><a href="#cb7-335" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_converged =</span> <span class="fu">sum</span>(converged, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb7-336"><a href="#cb7-336" aria-hidden="true" tabindex="-1"></a>    <span class="at">conv_pct    =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">mean</span>(converged, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
-<span id="cb7-337"><a href="#cb7-337" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups     =</span> <span class="st">&quot;drop&quot;</span></span>
-<span id="cb7-338"><a href="#cb7-338" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb7-339"><a href="#cb7-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-340"><a href="#cb7-340" aria-hidden="true" tabindex="-1"></a>conv_summary <span class="sc">|&gt;</span></span>
-<span id="cb7-341"><a href="#cb7-341" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">Scenario =</span> scenario, <span class="at">Label =</span> label_short,</span>
-<span id="cb7-342"><a href="#cb7-342" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">N tagged</span><span class="st">`</span> <span class="ot">=</span> n_tagged, <span class="st">`</span><span class="at">φ annual</span><span class="st">`</span> <span class="ot">=</span> phi_annual,</span>
-<span id="cb7-343"><a href="#cb7-343" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Informative priors</span><span class="st">`</span> <span class="ot">=</span> use_inform,</span>
-<span id="cb7-344"><a href="#cb7-344" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Reps converged</span><span class="st">`</span> <span class="ot">=</span> n_converged,</span>
-<span id="cb7-345"><a href="#cb7-345" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">% converged</span><span class="st">`</span> <span class="ot">=</span> conv_pct) <span class="sc">|&gt;</span></span>
-<span id="cb7-346"><a href="#cb7-346" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Informative priors</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">if_else</span>(<span class="st">`</span><span class="at">Informative priors</span><span class="st">`</span>, <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb7-347"><a href="#cb7-347" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;c&quot;</span>,<span class="st">&quot;l&quot;</span>,<span class="st">&quot;r&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;r&quot;</span>,<span class="st">&quot;r&quot;</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb7-348"><a href="#cb7-348" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>), <span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-349"><a href="#cb7-349" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb7-350"><a href="#cb7-350" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-308"><a href="#cb7-308" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-309"><a href="#cb7-309" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: results-check</span></span>
+<span id="cb7-310"><a href="#cb7-310" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb7-311"><a href="#cb7-311" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
+<span id="cb7-312"><a href="#cb7-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-313"><a href="#cb7-313" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span>results_available) {</span>
+<span id="cb7-314"><a href="#cb7-314" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;&gt; **Results pending.** The simulation output file</span></span>
+<span id="cb7-315"><a href="#cb7-315" aria-hidden="true" tabindex="-1"></a><span class="st">  (`simulation_output_CFBrown.rds`) has not yet been committed to the</span></span>
+<span id="cb7-316"><a href="#cb7-316" aria-hidden="true" tabindex="-1"></a><span class="st">  repository. Once the overnight JAGS run completes and the output is pushed</span></span>
+<span id="cb7-317"><a href="#cb7-317" aria-hidden="true" tabindex="-1"></a><span class="st">  to GitHub, this section will render automatically on the next Actions run.&quot;</span>)</span>
+<span id="cb7-318"><a href="#cb7-318" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-319"><a href="#cb7-319" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-320"><a href="#cb7-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-323"><a href="#cb7-323" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-324"><a href="#cb7-324" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: convergence-summary</span></span>
+<span id="cb7-325"><a href="#cb7-325" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb7-326"><a href="#cb7-326" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: !expr results_available</span></span>
+<span id="cb7-327"><a href="#cb7-327" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: &quot;Convergence summary by scenario (Rhat &lt; 1.1 for all monitored parameters).&quot;</span></span>
+<span id="cb7-328"><a href="#cb7-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-329"><a href="#cb7-329" aria-hidden="true" tabindex="-1"></a>conv_summary <span class="ot">&lt;-</span> all_data <span class="sc">|&gt;</span></span>
+<span id="cb7-330"><a href="#cb7-330" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(scenario, label_short, n_tagged, phi_annual, use_inform) <span class="sc">|&gt;</span></span>
+<span id="cb7-331"><a href="#cb7-331" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb7-332"><a href="#cb7-332" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_reps      =</span> <span class="fu">n</span>(),</span>
+<span id="cb7-333"><a href="#cb7-333" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_converged =</span> <span class="fu">sum</span>(converged, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb7-334"><a href="#cb7-334" aria-hidden="true" tabindex="-1"></a>    <span class="at">conv_pct    =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">mean</span>(converged, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb7-335"><a href="#cb7-335" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups     =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb7-336"><a href="#cb7-336" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-337"><a href="#cb7-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-338"><a href="#cb7-338" aria-hidden="true" tabindex="-1"></a>conv_summary <span class="sc">|&gt;</span></span>
+<span id="cb7-339"><a href="#cb7-339" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">Scenario =</span> scenario, <span class="at">Label =</span> label_short,</span>
+<span id="cb7-340"><a href="#cb7-340" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">N tagged</span><span class="st">`</span> <span class="ot">=</span> n_tagged, <span class="st">`</span><span class="at">φ annual</span><span class="st">`</span> <span class="ot">=</span> phi_annual,</span>
+<span id="cb7-341"><a href="#cb7-341" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Informative priors</span><span class="st">`</span> <span class="ot">=</span> use_inform,</span>
+<span id="cb7-342"><a href="#cb7-342" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Reps converged</span><span class="st">`</span> <span class="ot">=</span> n_converged,</span>
+<span id="cb7-343"><a href="#cb7-343" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">% converged</span><span class="st">`</span> <span class="ot">=</span> conv_pct) <span class="sc">|&gt;</span></span>
+<span id="cb7-344"><a href="#cb7-344" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Informative priors</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">if_else</span>(<span class="st">`</span><span class="at">Informative priors</span><span class="st">`</span>, <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-345"><a href="#cb7-345" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;c&quot;</span>,<span class="st">&quot;l&quot;</span>,<span class="st">&quot;r&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;r&quot;</span>,<span class="st">&quot;r&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-346"><a href="#cb7-346" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>), <span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-347"><a href="#cb7-347" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-348"><a href="#cb7-348" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-349"><a href="#cb7-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-350"><a href="#cb7-350" aria-hidden="true" tabindex="-1"></a><span class="fu">### Precision by Sample Size</span></span>
 <span id="cb7-351"><a href="#cb7-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-352"><a href="#cb7-352" aria-hidden="true" tabindex="-1"></a><span class="fu">### Precision by Sample Size</span></span>
-<span id="cb7-353"><a href="#cb7-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-354"><a href="#cb7-354" aria-hidden="true" tabindex="-1"></a>Posterior standard deviation (SD) measures how precisely each parameter is</span>
-<span id="cb7-355"><a href="#cb7-355" aria-hidden="true" tabindex="-1"></a>estimated. Smaller SD = tighter credible intervals = more confident conclusions.</span>
-<span id="cb7-356"><a href="#cb7-356" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-359"><a href="#cb7-359" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-360"><a href="#cb7-360" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-precision-ntag</span></span>
-<span id="cb7-361"><a href="#cb7-361" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: &quot;Posterior SD for primary parameters across sample size scenarios (scenarios 1–3, informative priors, 20% annual survival). Horizontal blue lines show the true parameter value. Lower SD indicates better precision.&quot;</span></span>
-<span id="cb7-362"><a href="#cb7-362" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: !expr results_available</span></span>
-<span id="cb7-363"><a href="#cb7-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-364"><a href="#cb7-364" aria-hidden="true" tabindex="-1"></a>plot_dat <span class="ot">&lt;-</span> all_data <span class="sc">|&gt;</span></span>
-<span id="cb7-365"><a href="#cb7-365" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scenario <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb7-366"><a href="#cb7-366" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scenario, n_tagged, label_short,</span>
-<span id="cb7-367"><a href="#cb7-367" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Trib survival</span><span class="sc">\n</span><span class="at">(φ_trib)</span><span class="st">`</span>       <span class="ot">=</span> phi_trib_sd,</span>
-<span id="cb7-368"><a href="#cb7-368" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Mainstem survival</span><span class="sc">\n</span><span class="at">(φ_main)</span><span class="st">`</span>   <span class="ot">=</span> phi_main_sd,</span>
-<span id="cb7-369"><a href="#cb7-369" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Downstream emigration</span><span class="sc">\n</span><span class="at">(ψ_down)</span><span class="st">`</span> <span class="ot">=</span> psi_down_sd,</span>
-<span id="cb7-370"><a href="#cb7-370" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Gembeck detection</span><span class="sc">\n</span><span class="at">(p_gem)</span><span class="st">`</span>    <span class="ot">=</span> p_gem_sd) <span class="sc">|&gt;</span></span>
-<span id="cb7-371"><a href="#cb7-371" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>(scenario<span class="sc">:</span>label_short), <span class="at">names_to =</span> <span class="st">&quot;parameter&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;post_sd&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-372"><a href="#cb7-372" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_tagged =</span> <span class="fu">factor</span>(n_tagged))</span>
-<span id="cb7-373"><a href="#cb7-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-374"><a href="#cb7-374" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_dat, <span class="fu">aes</span>(<span class="at">x =</span> n_tagged, <span class="at">y =</span> post_sd)) <span class="sc">+</span></span>
-<span id="cb7-375"><a href="#cb7-375" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">outlier.size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb7-376"><a href="#cb7-376" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>parameter, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb7-377"><a href="#cb7-377" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Number of fish tagged&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Posterior SD&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-378"><a href="#cb7-378" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_cf</span>()</span>
-<span id="cb7-379"><a href="#cb7-379" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-352"><a href="#cb7-352" aria-hidden="true" tabindex="-1"></a>Posterior standard deviation (SD) measures how precisely each parameter is</span>
+<span id="cb7-353"><a href="#cb7-353" aria-hidden="true" tabindex="-1"></a>estimated. Smaller SD = tighter credible intervals.</span>
+<span id="cb7-354"><a href="#cb7-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-357"><a href="#cb7-357" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-358"><a href="#cb7-358" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-precision-ntag</span></span>
+<span id="cb7-359"><a href="#cb7-359" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: &quot;Posterior SD for primary parameters across sample size scenarios (scenarios 1–3, informative priors, 20% annual survival). Horizontal blue lines show the true parameter value. Lower SD indicates better precision.&quot;</span></span>
+<span id="cb7-360"><a href="#cb7-360" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: !expr results_available</span></span>
+<span id="cb7-361"><a href="#cb7-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-362"><a href="#cb7-362" aria-hidden="true" tabindex="-1"></a>plot_dat <span class="ot">&lt;-</span> all_data <span class="sc">|&gt;</span></span>
+<span id="cb7-363"><a href="#cb7-363" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scenario <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-364"><a href="#cb7-364" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scenario, n_tagged, label_short,</span>
+<span id="cb7-365"><a href="#cb7-365" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Trib survival</span><span class="sc">\n</span><span class="at">(φ_trib)</span><span class="st">`</span>       <span class="ot">=</span> phi_trib_sd,</span>
+<span id="cb7-366"><a href="#cb7-366" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Mainstem survival</span><span class="sc">\n</span><span class="at">(φ_main)</span><span class="st">`</span>   <span class="ot">=</span> phi_main_sd,</span>
+<span id="cb7-367"><a href="#cb7-367" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Downstream emigration</span><span class="sc">\n</span><span class="at">(ψ_down)</span><span class="st">`</span> <span class="ot">=</span> psi_down_sd,</span>
+<span id="cb7-368"><a href="#cb7-368" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Gembeck detection</span><span class="sc">\n</span><span class="at">(p_gem)</span><span class="st">`</span>    <span class="ot">=</span> p_gem_sd) <span class="sc">|&gt;</span></span>
+<span id="cb7-369"><a href="#cb7-369" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>(scenario<span class="sc">:</span>label_short), <span class="at">names_to =</span> <span class="st">&quot;parameter&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;post_sd&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-370"><a href="#cb7-370" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_tagged =</span> <span class="fu">factor</span>(n_tagged))</span>
+<span id="cb7-371"><a href="#cb7-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-372"><a href="#cb7-372" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_dat, <span class="fu">aes</span>(<span class="at">x =</span> n_tagged, <span class="at">y =</span> post_sd)) <span class="sc">+</span></span>
+<span id="cb7-373"><a href="#cb7-373" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">outlier.size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb7-374"><a href="#cb7-374" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>parameter, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb7-375"><a href="#cb7-375" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Number of fish tagged&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Posterior SD&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-376"><a href="#cb7-376" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_cf</span>()</span>
+<span id="cb7-377"><a href="#cb7-377" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-378"><a href="#cb7-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-379"><a href="#cb7-379" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bias Assessment</span></span>
 <span id="cb7-380"><a href="#cb7-380" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-381"><a href="#cb7-381" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bias Assessment</span></span>
-<span id="cb7-382"><a href="#cb7-382" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-383"><a href="#cb7-383" aria-hidden="true" tabindex="-1"></a>Bias is the mean difference between the estimated posterior mean and the known</span>
-<span id="cb7-384"><a href="#cb7-384" aria-hidden="true" tabindex="-1"></a>true value. Values near zero indicate the model recovers the truth without</span>
-<span id="cb7-385"><a href="#cb7-385" aria-hidden="true" tabindex="-1"></a>systematic over- or under-estimation.</span>
-<span id="cb7-386"><a href="#cb7-386" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-389"><a href="#cb7-389" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-390"><a href="#cb7-390" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-bias</span></span>
-<span id="cb7-391"><a href="#cb7-391" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: &quot;Bias (estimated − true) for survival and downstream emigration across sample size scenarios. Dashed line at zero = no bias.&quot;</span></span>
-<span id="cb7-392"><a href="#cb7-392" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: !expr results_available</span></span>
-<span id="cb7-393"><a href="#cb7-393" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-394"><a href="#cb7-394" aria-hidden="true" tabindex="-1"></a>bias_dat <span class="ot">&lt;-</span> all_data <span class="sc">|&gt;</span></span>
-<span id="cb7-395"><a href="#cb7-395" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scenario <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb7-396"><a href="#cb7-396" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scenario, n_tagged,</span>
-<span id="cb7-397"><a href="#cb7-397" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Mainstem survival</span><span class="sc">\n</span><span class="at">(φ_main)</span><span class="st">`</span>     <span class="ot">=</span> bias_phi_main,</span>
-<span id="cb7-398"><a href="#cb7-398" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Trib survival</span><span class="sc">\n</span><span class="at">(φ_trib)</span><span class="st">`</span>          <span class="ot">=</span> bias_phi_trib,</span>
-<span id="cb7-399"><a href="#cb7-399" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Downstream emigration</span><span class="sc">\n</span><span class="at">(ψ_down)</span><span class="st">`</span>  <span class="ot">=</span> bias_psi_down) <span class="sc">|&gt;</span></span>
-<span id="cb7-400"><a href="#cb7-400" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>(scenario<span class="sc">:</span>n_tagged), <span class="at">names_to =</span> <span class="st">&quot;parameter&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;bias&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-401"><a href="#cb7-401" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_tagged =</span> <span class="fu">factor</span>(n_tagged))</span>
-<span id="cb7-402"><a href="#cb7-402" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-403"><a href="#cb7-403" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bias_dat, <span class="fu">aes</span>(<span class="at">x =</span> n_tagged, <span class="at">y =</span> bias)) <span class="sc">+</span></span>
-<span id="cb7-404"><a href="#cb7-404" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;grey40&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-405"><a href="#cb7-405" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;coral&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">outlier.size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb7-406"><a href="#cb7-406" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>parameter, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb7-407"><a href="#cb7-407" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Number of fish tagged&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Bias (estimated − true)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-408"><a href="#cb7-408" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_cf</span>()</span>
-<span id="cb7-409"><a href="#cb7-409" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-381"><a href="#cb7-381" aria-hidden="true" tabindex="-1"></a>Bias is the mean difference between the estimated posterior mean and the known</span>
+<span id="cb7-382"><a href="#cb7-382" aria-hidden="true" tabindex="-1"></a>true value. Values near zero indicate the model recovers the truth without</span>
+<span id="cb7-383"><a href="#cb7-383" aria-hidden="true" tabindex="-1"></a>systematic over- or under-estimation.</span>
+<span id="cb7-384"><a href="#cb7-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-387"><a href="#cb7-387" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-388"><a href="#cb7-388" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-bias</span></span>
+<span id="cb7-389"><a href="#cb7-389" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: &quot;Bias (estimated − true) for survival and downstream emigration across sample size scenarios. Dashed line at zero = no bias.&quot;</span></span>
+<span id="cb7-390"><a href="#cb7-390" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: !expr results_available</span></span>
+<span id="cb7-391"><a href="#cb7-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-392"><a href="#cb7-392" aria-hidden="true" tabindex="-1"></a>bias_dat <span class="ot">&lt;-</span> all_data <span class="sc">|&gt;</span></span>
+<span id="cb7-393"><a href="#cb7-393" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scenario <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-394"><a href="#cb7-394" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scenario, n_tagged,</span>
+<span id="cb7-395"><a href="#cb7-395" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Mainstem survival</span><span class="sc">\n</span><span class="at">(φ_main)</span><span class="st">`</span>     <span class="ot">=</span> bias_phi_main,</span>
+<span id="cb7-396"><a href="#cb7-396" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Trib survival</span><span class="sc">\n</span><span class="at">(φ_trib)</span><span class="st">`</span>          <span class="ot">=</span> bias_phi_trib,</span>
+<span id="cb7-397"><a href="#cb7-397" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Downstream emigration</span><span class="sc">\n</span><span class="at">(ψ_down)</span><span class="st">`</span>  <span class="ot">=</span> bias_psi_down) <span class="sc">|&gt;</span></span>
+<span id="cb7-398"><a href="#cb7-398" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>(scenario<span class="sc">:</span>n_tagged), <span class="at">names_to =</span> <span class="st">&quot;parameter&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;bias&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-399"><a href="#cb7-399" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_tagged =</span> <span class="fu">factor</span>(n_tagged))</span>
+<span id="cb7-400"><a href="#cb7-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-401"><a href="#cb7-401" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bias_dat, <span class="fu">aes</span>(<span class="at">x =</span> n_tagged, <span class="at">y =</span> bias)) <span class="sc">+</span></span>
+<span id="cb7-402"><a href="#cb7-402" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;grey40&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-403"><a href="#cb7-403" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;coral&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">outlier.size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb7-404"><a href="#cb7-404" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>parameter, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb7-405"><a href="#cb7-405" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Number of fish tagged&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Bias (estimated − true)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-406"><a href="#cb7-406" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_cf</span>()</span>
+<span id="cb7-407"><a href="#cb7-407" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-408"><a href="#cb7-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-409"><a href="#cb7-409" aria-hidden="true" tabindex="-1"></a><span class="fu">### Value of Pilot Detection Data (Prior Sensitivity)</span></span>
 <span id="cb7-410"><a href="#cb7-410" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-411"><a href="#cb7-411" aria-hidden="true" tabindex="-1"></a><span class="fu">### Value of Pilot Detection Data (Prior Sensitivity)</span></span>
-<span id="cb7-412"><a href="#cb7-412" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-413"><a href="#cb7-413" aria-hidden="true" tabindex="-1"></a>Scenarios 8 and 10 repeat baseline conditions with **vague** priors on detection</span>
-<span id="cb7-414"><a href="#cb7-414" aria-hidden="true" tabindex="-1"></a>probabilities. Comparing these against matched informative-prior scenarios</span>
-<span id="cb7-415"><a href="#cb7-415" aria-hidden="true" tabindex="-1"></a>quantifies how much the 2023–2025 pilot antenna and electrofishing data are</span>
-<span id="cb7-416"><a href="#cb7-416" aria-hidden="true" tabindex="-1"></a>worth in terms of parameter precision.</span>
-<span id="cb7-417"><a href="#cb7-417" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-420"><a href="#cb7-420" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-421"><a href="#cb7-421" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-prior-sensitivity</span></span>
-<span id="cb7-422"><a href="#cb7-422" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: &quot;Effect of prior type on posterior SD for key parameters. Each pair of boxplots shares the same n_tagged and true parameter values. &#39;Informative&#39; priors use pilot detection estimates; &#39;Vague&#39; priors are essentially flat.&quot;</span></span>
-<span id="cb7-423"><a href="#cb7-423" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: !expr results_available</span></span>
-<span id="cb7-424"><a href="#cb7-424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-425"><a href="#cb7-425" aria-hidden="true" tabindex="-1"></a>prior_dat <span class="ot">&lt;-</span> all_data <span class="sc">|&gt;</span></span>
-<span id="cb7-426"><a href="#cb7-426" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scenario <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">10</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb7-427"><a href="#cb7-427" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb7-428"><a href="#cb7-428" aria-hidden="true" tabindex="-1"></a>    <span class="at">comparison =</span> <span class="fu">case_when</span>(</span>
-<span id="cb7-429"><a href="#cb7-429" aria-hidden="true" tabindex="-1"></a>      scenario <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">8</span>)  <span class="sc">~</span> <span class="st">&quot;1000 fish</span><span class="sc">\n</span><span class="st">20% survival&quot;</span>,</span>
-<span id="cb7-430"><a href="#cb7-430" aria-hidden="true" tabindex="-1"></a>      scenario <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>) <span class="sc">~</span> <span class="st">&quot;1000 fish</span><span class="sc">\n</span><span class="st">10% survival&quot;</span></span>
-<span id="cb7-431"><a href="#cb7-431" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb7-432"><a href="#cb7-432" aria-hidden="true" tabindex="-1"></a>    <span class="at">prior_label =</span> <span class="fu">if_else</span>(use_inform, <span class="st">&quot;Informative</span><span class="sc">\n</span><span class="st">priors&quot;</span>, <span class="st">&quot;Vague</span><span class="sc">\n</span><span class="st">priors&quot;</span>)</span>
-<span id="cb7-433"><a href="#cb7-433" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb7-434"><a href="#cb7-434" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(comparison, prior_label,</span>
-<span id="cb7-435"><a href="#cb7-435" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">φ_main SD</span><span class="st">`</span>  <span class="ot">=</span> phi_main_sd,</span>
-<span id="cb7-436"><a href="#cb7-436" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">ψ_down SD</span><span class="st">`</span>  <span class="ot">=</span> psi_down_sd,</span>
-<span id="cb7-437"><a href="#cb7-437" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">p_gem SD</span><span class="st">`</span>   <span class="ot">=</span> p_gem_sd) <span class="sc">|&gt;</span></span>
-<span id="cb7-438"><a href="#cb7-438" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>(comparison<span class="sc">:</span>prior_label), <span class="at">names_to =</span> <span class="st">&quot;parameter&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;post_sd&quot;</span>)</span>
-<span id="cb7-439"><a href="#cb7-439" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-440"><a href="#cb7-440" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(prior_dat, <span class="fu">aes</span>(<span class="at">x =</span> prior_label, <span class="at">y =</span> post_sd, <span class="at">fill =</span> prior_label)) <span class="sc">+</span></span>
-<span id="cb7-441"><a href="#cb7-441" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb7-442"><a href="#cb7-442" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(parameter <span class="sc">~</span> comparison, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-443"><a href="#cb7-443" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Informative</span><span class="sc">\n</span><span class="st">priors&quot;</span> <span class="ot">=</span> <span class="st">&quot;steelblue&quot;</span>,</span>
-<span id="cb7-444"><a href="#cb7-444" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;Vague</span><span class="sc">\n</span><span class="st">priors&quot;</span>       <span class="ot">=</span> <span class="st">&quot;coral&quot;</span>),</span>
-<span id="cb7-445"><a href="#cb7-445" aria-hidden="true" tabindex="-1"></a>                    <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-446"><a href="#cb7-446" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Posterior SD&quot;</span>) <span class="sc">+</span></span>
-<span id="cb7-447"><a href="#cb7-447" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_cf</span>()</span>
-<span id="cb7-448"><a href="#cb7-448" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-411"><a href="#cb7-411" aria-hidden="true" tabindex="-1"></a>Scenarios 8 and 10 repeat baseline conditions with **vague** priors on detection</span>
+<span id="cb7-412"><a href="#cb7-412" aria-hidden="true" tabindex="-1"></a>probabilities. Comparing these against matched informative-prior scenarios</span>
+<span id="cb7-413"><a href="#cb7-413" aria-hidden="true" tabindex="-1"></a>quantifies how much the 2023–2025 pilot antenna and electrofishing data are</span>
+<span id="cb7-414"><a href="#cb7-414" aria-hidden="true" tabindex="-1"></a>worth in terms of parameter precision.</span>
+<span id="cb7-415"><a href="#cb7-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-418"><a href="#cb7-418" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-419"><a href="#cb7-419" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-prior-sensitivity</span></span>
+<span id="cb7-420"><a href="#cb7-420" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: &quot;Effect of prior type on posterior SD for key parameters. Each pair of boxplots shares the same n_tagged and true parameter values. &#39;Informative&#39; priors use pilot detection estimates; &#39;Vague&#39; priors are essentially flat.&quot;</span></span>
+<span id="cb7-421"><a href="#cb7-421" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: !expr results_available</span></span>
+<span id="cb7-422"><a href="#cb7-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-423"><a href="#cb7-423" aria-hidden="true" tabindex="-1"></a>prior_dat <span class="ot">&lt;-</span> all_data <span class="sc">|&gt;</span></span>
+<span id="cb7-424"><a href="#cb7-424" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scenario <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">10</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-425"><a href="#cb7-425" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-426"><a href="#cb7-426" aria-hidden="true" tabindex="-1"></a>    <span class="at">comparison =</span> <span class="fu">case_when</span>(</span>
+<span id="cb7-427"><a href="#cb7-427" aria-hidden="true" tabindex="-1"></a>      scenario <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">8</span>)  <span class="sc">~</span> <span class="st">&quot;1000 fish</span><span class="sc">\n</span><span class="st">20% survival&quot;</span>,</span>
+<span id="cb7-428"><a href="#cb7-428" aria-hidden="true" tabindex="-1"></a>      scenario <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>) <span class="sc">~</span> <span class="st">&quot;1000 fish</span><span class="sc">\n</span><span class="st">10% survival&quot;</span></span>
+<span id="cb7-429"><a href="#cb7-429" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb7-430"><a href="#cb7-430" aria-hidden="true" tabindex="-1"></a>    <span class="at">prior_label =</span> <span class="fu">if_else</span>(use_inform, <span class="st">&quot;Informative</span><span class="sc">\n</span><span class="st">priors&quot;</span>, <span class="st">&quot;Vague</span><span class="sc">\n</span><span class="st">priors&quot;</span>)</span>
+<span id="cb7-431"><a href="#cb7-431" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb7-432"><a href="#cb7-432" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(comparison, prior_label,</span>
+<span id="cb7-433"><a href="#cb7-433" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">φ_main SD</span><span class="st">`</span>  <span class="ot">=</span> phi_main_sd,</span>
+<span id="cb7-434"><a href="#cb7-434" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">ψ_down SD</span><span class="st">`</span>  <span class="ot">=</span> psi_down_sd,</span>
+<span id="cb7-435"><a href="#cb7-435" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">p_gem SD</span><span class="st">`</span>   <span class="ot">=</span> p_gem_sd) <span class="sc">|&gt;</span></span>
+<span id="cb7-436"><a href="#cb7-436" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>(comparison<span class="sc">:</span>prior_label), <span class="at">names_to =</span> <span class="st">&quot;parameter&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;post_sd&quot;</span>)</span>
+<span id="cb7-437"><a href="#cb7-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-438"><a href="#cb7-438" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(prior_dat, <span class="fu">aes</span>(<span class="at">x =</span> prior_label, <span class="at">y =</span> post_sd, <span class="at">fill =</span> prior_label)) <span class="sc">+</span></span>
+<span id="cb7-439"><a href="#cb7-439" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb7-440"><a href="#cb7-440" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(parameter <span class="sc">~</span> comparison, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-441"><a href="#cb7-441" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Informative</span><span class="sc">\n</span><span class="st">priors&quot;</span> <span class="ot">=</span> <span class="st">&quot;steelblue&quot;</span>,</span>
+<span id="cb7-442"><a href="#cb7-442" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;Vague</span><span class="sc">\n</span><span class="st">priors&quot;</span>       <span class="ot">=</span> <span class="st">&quot;coral&quot;</span>),</span>
+<span id="cb7-443"><a href="#cb7-443" aria-hidden="true" tabindex="-1"></a>                    <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-444"><a href="#cb7-444" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Posterior SD&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-445"><a href="#cb7-445" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_cf</span>()</span>
+<span id="cb7-446"><a href="#cb7-446" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-447"><a href="#cb7-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-448"><a href="#cb7-448" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summary Statistics</span></span>
 <span id="cb7-449"><a href="#cb7-449" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-450"><a href="#cb7-450" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summary Statistics</span></span>
-<span id="cb7-451"><a href="#cb7-451" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-454"><a href="#cb7-454" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-455"><a href="#cb7-455" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-summary</span></span>
-<span id="cb7-456"><a href="#cb7-456" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: &quot;Summary of estimation performance across all scenarios. Mean SE = mean posterior SD across replications (precision); RMSE = root mean squared error (combined accuracy + precision); Bias = mean(estimated − true).&quot;</span></span>
-<span id="cb7-457"><a href="#cb7-457" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: !expr results_available</span></span>
-<span id="cb7-458"><a href="#cb7-458" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-459"><a href="#cb7-459" aria-hidden="true" tabindex="-1"></a>all_data <span class="sc">|&gt;</span></span>
-<span id="cb7-460"><a href="#cb7-460" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">Scenario =</span> scenario, <span class="at">Label =</span> label_short) <span class="sc">|&gt;</span></span>
-<span id="cb7-461"><a href="#cb7-461" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb7-462"><a href="#cb7-462" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">N reps</span><span class="st">`</span>        <span class="ot">=</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(phi_main_mean)),</span>
-<span id="cb7-463"><a href="#cb7-463" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">φ_main bias</span><span class="st">`</span>   <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(bias_phi_main,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">4</span>),</span>
-<span id="cb7-464"><a href="#cb7-464" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">φ_main mean SE</span><span class="st">`</span><span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(phi_main_sd,    <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">4</span>),</span>
-<span id="cb7-465"><a href="#cb7-465" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">φ_main RMSE</span><span class="st">`</span>   <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">sqrt</span>(<span class="fu">mean</span>(bias_phi_main<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="dv">4</span>),</span>
-<span id="cb7-466"><a href="#cb7-466" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">ψ_down bias</span><span class="st">`</span>   <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(bias_psi_down,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">4</span>),</span>
-<span id="cb7-467"><a href="#cb7-467" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">ψ_down mean SE</span><span class="st">`</span><span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(psi_down_sd,    <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">4</span>),</span>
-<span id="cb7-468"><a href="#cb7-468" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">p_gem mean SE</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(p_gem_sd,        <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">4</span>),</span>
-<span id="cb7-469"><a href="#cb7-469" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">% converged</span><span class="st">`</span>   <span class="ot">=</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">mean</span>(converged, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
-<span id="cb7-470"><a href="#cb7-470" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
-<span id="cb7-471"><a href="#cb7-471" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb7-472"><a href="#cb7-472" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;r&quot;</span>, <span class="dv">8</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb7-473"><a href="#cb7-473" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
-<span id="cb7-474"><a href="#cb7-474" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-475"><a href="#cb7-475" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb7-476"><a href="#cb7-476" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-452"><a href="#cb7-452" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-453"><a href="#cb7-453" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-summary</span></span>
+<span id="cb7-454"><a href="#cb7-454" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: &quot;Summary of estimation performance across all scenarios. Mean SE = mean posterior SD across replications (precision); RMSE = root mean squared error (combined accuracy + precision); Bias = mean(estimated − true).&quot;</span></span>
+<span id="cb7-455"><a href="#cb7-455" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: !expr results_available</span></span>
+<span id="cb7-456"><a href="#cb7-456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-457"><a href="#cb7-457" aria-hidden="true" tabindex="-1"></a>all_data <span class="sc">|&gt;</span></span>
+<span id="cb7-458"><a href="#cb7-458" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">Scenario =</span> scenario, <span class="at">Label =</span> label_short) <span class="sc">|&gt;</span></span>
+<span id="cb7-459"><a href="#cb7-459" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb7-460"><a href="#cb7-460" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">N reps</span><span class="st">`</span>        <span class="ot">=</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(phi_main_mean)),</span>
+<span id="cb7-461"><a href="#cb7-461" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">φ_main bias</span><span class="st">`</span>   <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(bias_phi_main,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">4</span>),</span>
+<span id="cb7-462"><a href="#cb7-462" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">φ_main mean SE</span><span class="st">`</span><span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(phi_main_sd,    <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">4</span>),</span>
+<span id="cb7-463"><a href="#cb7-463" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">φ_main RMSE</span><span class="st">`</span>   <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">sqrt</span>(<span class="fu">mean</span>(bias_phi_main<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="dv">4</span>),</span>
+<span id="cb7-464"><a href="#cb7-464" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">ψ_down bias</span><span class="st">`</span>   <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(bias_psi_down,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">4</span>),</span>
+<span id="cb7-465"><a href="#cb7-465" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">ψ_down mean SE</span><span class="st">`</span><span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(psi_down_sd,    <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">4</span>),</span>
+<span id="cb7-466"><a href="#cb7-466" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">p_gem mean SE</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(p_gem_sd,        <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">4</span>),</span>
+<span id="cb7-467"><a href="#cb7-467" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">% converged</span><span class="st">`</span>   <span class="ot">=</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">mean</span>(converged, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb7-468"><a href="#cb7-468" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb7-469"><a href="#cb7-469" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb7-470"><a href="#cb7-470" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;r&quot;</span>, <span class="dv">8</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb7-471"><a href="#cb7-471" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb7-472"><a href="#cb7-472" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>, <span class="at">font_size =</span> <span class="dv">13</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-473"><a href="#cb7-473" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-474"><a href="#cb7-474" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-475"><a href="#cb7-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-476"><a href="#cb7-476" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb7-477"><a href="#cb7-477" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-478"><a href="#cb7-478" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb7-478"><a href="#cb7-478" aria-hidden="true" tabindex="-1"></a><span class="fu">## Recommendations</span></span>
 <span id="cb7-479"><a href="#cb7-479" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-480"><a href="#cb7-480" aria-hidden="true" tabindex="-1"></a><span class="fu">## Recommendations</span></span>
-<span id="cb7-481"><a href="#cb7-481" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-484"><a href="#cb7-484" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-485"><a href="#cb7-485" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: recommendations</span></span>
-<span id="cb7-486"><a href="#cb7-486" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb7-487"><a href="#cb7-487" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
+<span id="cb7-482"><a href="#cb7-482" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-483"><a href="#cb7-483" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: recommendations</span></span>
+<span id="cb7-484"><a href="#cb7-484" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb7-485"><a href="#cb7-485" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
+<span id="cb7-486"><a href="#cb7-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-487"><a href="#cb7-487" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (results_available) {</span>
 <span id="cb7-488"><a href="#cb7-488" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-489"><a href="#cb7-489" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (results_available) {</span>
-<span id="cb7-490"><a href="#cb7-490" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-491"><a href="#cb7-491" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Pull key precision numbers for the inline text</span></span>
-<span id="cb7-492"><a href="#cb7-492" aria-hidden="true" tabindex="-1"></a>  baseline <span class="ot">&lt;-</span> all_data <span class="sc">|&gt;</span></span>
-<span id="cb7-493"><a href="#cb7-493" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(scenario <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-494"><a href="#cb7-494" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
-<span id="cb7-495"><a href="#cb7-495" aria-hidden="true" tabindex="-1"></a>      <span class="at">phi_main_se  =</span> <span class="fu">round</span>(<span class="fu">mean</span>(phi_main_sd,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">3</span>),</span>
-<span id="cb7-496"><a href="#cb7-496" aria-hidden="true" tabindex="-1"></a>      <span class="at">psi_down_se  =</span> <span class="fu">round</span>(<span class="fu">mean</span>(psi_down_sd,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">3</span>),</span>
-<span id="cb7-497"><a href="#cb7-497" aria-hidden="true" tabindex="-1"></a>      <span class="at">conv_pct     =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">mean</span>(converged, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb7-498"><a href="#cb7-498" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb7-499"><a href="#cb7-499" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-500"><a href="#cb7-500" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;</span></span>
-<span id="cb7-501"><a href="#cb7-501" aria-hidden="true" tabindex="-1"></a><span class="st">Based on {baseline$conv_pct}% MCMC convergence and a mean posterior SD of</span></span>
-<span id="cb7-502"><a href="#cb7-502" aria-hidden="true" tabindex="-1"></a><span class="st">**{baseline$phi_main_se}** for mainstem survival and **{baseline$psi_down_se}**</span></span>
-<span id="cb7-503"><a href="#cb7-503" aria-hidden="true" tabindex="-1"></a><span class="st">for downstream emigration probability at the 1,000-fish baseline scenario,</span></span>
-<span id="cb7-504"><a href="#cb7-504" aria-hidden="true" tabindex="-1"></a><span class="st">the following recommendations apply:</span></span>
-<span id="cb7-505"><a href="#cb7-505" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span>))</span>
-<span id="cb7-506"><a href="#cb7-506" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-507"><a href="#cb7-507" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-508"><a href="#cb7-508" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-509"><a href="#cb7-509" aria-hidden="true" tabindex="-1"></a>Regardless of simulation outcome, the following structural conclusions hold:</span>
-<span id="cb7-510"><a href="#cb7-510" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-511"><a href="#cb7-511" aria-hidden="true" tabindex="-1"></a>**Minimum recommended tagging effort: 1,000 fish**</span>
-<span id="cb7-512"><a href="#cb7-512" aria-hidden="true" tabindex="-1"></a>: Below this threshold, emigration estimates become unstable due to the small</span>
-<span id="cb7-513"><a href="#cb7-513" aria-hidden="true" tabindex="-1"></a>  number of fish passing antennas. At 11–15% emigration, only 110–150 emigrants</span>
-<span id="cb7-514"><a href="#cb7-514" aria-hidden="true" tabindex="-1"></a>  are expected per 1,000 tagged fish — the lower bound of what the Gembeck/Sager</span>
-<span id="cb7-515"><a href="#cb7-515" aria-hidden="true" tabindex="-1"></a>  double-observer system needs to reliably estimate detection efficiency.</span>
-<span id="cb7-516"><a href="#cb7-516" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-517"><a href="#cb7-517" aria-hidden="true" tabindex="-1"></a>**Target tagging effort: 2,000–4,000 fish**</span>
-<span id="cb7-518"><a href="#cb7-518" aria-hidden="true" tabindex="-1"></a>: Achievable within the spring electrofishing + screw trap design (pilot estimate:</span>
-<span id="cb7-519"><a href="#cb7-519" aria-hidden="true" tabindex="-1"></a>  4,000–6,000 fish). This range meaningfully improves precision over the 1,000-fish</span>
-<span id="cb7-520"><a href="#cb7-520" aria-hidden="true" tabindex="-1"></a>  minimum and provides robustness against poor electrofishing years (p_efish ≈ 0.15).</span>
-<span id="cb7-521"><a href="#cb7-521" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-522"><a href="#cb7-522" aria-hidden="true" tabindex="-1"></a>**Value of pilot detection data**</span>
-<span id="cb7-523"><a href="#cb7-523" aria-hidden="true" tabindex="-1"></a>: Informative priors on detection probabilities (from the 2023–2025 pilot work)</span>
-<span id="cb7-524"><a href="#cb7-524" aria-hidden="true" tabindex="-1"></a>  materially improve estimation of downstream emigration and Gembeck detection</span>
-<span id="cb7-525"><a href="#cb7-525" aria-hidden="true" tabindex="-1"></a>  efficiency. The pilot data are load-bearing — vague priors produce noticeably</span>
-<span id="cb7-526"><a href="#cb7-526" aria-hidden="true" tabindex="-1"></a>  wider posteriors, particularly when survival is low and few fish are available</span>
-<span id="cb7-527"><a href="#cb7-527" aria-hidden="true" tabindex="-1"></a>  at each antenna.</span>
-<span id="cb7-528"><a href="#cb7-528" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-529"><a href="#cb7-529" aria-hidden="true" tabindex="-1"></a>**Primary study reach: Warm Springs to Gembeck Rd**</span>
-<span id="cb7-530"><a href="#cb7-530" aria-hidden="true" tabindex="-1"></a>: The ~11-mile reach between these two mainstem antennas is appropriately sized</span>
-<span id="cb7-531"><a href="#cb7-531" aria-hidden="true" tabindex="-1"></a>  for boat electrofishing and provides a bounded study area for survival estimation.</span>
-<span id="cb7-532"><a href="#cb7-532" aria-hidden="true" tabindex="-1"></a>  Extension to the Gembeck–Sager section is worthwhile if tagging targets are met,</span>
-<span id="cb7-533"><a href="#cb7-533" aria-hidden="true" tabindex="-1"></a>  but the upper reach should be the analytical priority.</span>
-<span id="cb7-534"><a href="#cb7-534" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-535"><a href="#cb7-535" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb7-536"><a href="#cb7-536" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-537"><a href="#cb7-537" aria-hidden="true" tabindex="-1"></a><span class="fu">## Methods Code</span></span>
-<span id="cb7-538"><a href="#cb7-538" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-539"><a href="#cb7-539" aria-hidden="true" tabindex="-1"></a>The full simulation and model-fitting code is available in this repository.</span>
-<span id="cb7-540"><a href="#cb7-540" aria-hidden="true" tabindex="-1"></a>Simulation is deterministic given the scenario inputs; results reproduce exactly</span>
-<span id="cb7-541"><a href="#cb7-541" aria-hidden="true" tabindex="-1"></a>with <span class="in">`set.seed(123)`</span>.</span>
-<span id="cb7-542"><a href="#cb7-542" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-545"><a href="#cb7-545" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-546"><a href="#cb7-546" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: show-sim-code</span></span>
-<span id="cb7-547"><a href="#cb7-547" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb7-548"><a href="#cb7-548" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb7-549"><a href="#cb7-549" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb7-550"><a href="#cb7-550" aria-hidden="true" tabindex="-1"></a><span class="co">#| file: power_analysis_CFBrown_loop.R</span></span>
-<span id="cb7-551"><a href="#cb7-551" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-552"><a href="#cb7-552" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-553"><a href="#cb7-553" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb7-554"><a href="#cb7-554" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-555"><a href="#cb7-555" aria-hidden="true" tabindex="-1"></a>*Analysis conducted in R using <span class="in">`jagsUI`</span> for Bayesian MCMC estimation.</span>
-<span id="cb7-556"><a href="#cb7-556" aria-hidden="true" tabindex="-1"></a>Model: <span class="in">`survival_CFBrown.txt`</span>. Rendered with <span class="co">[</span><span class="ot">Quarto</span><span class="co">](https://quarto.org)</span>.*</span>
+<span id="cb7-489"><a href="#cb7-489" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Pull key precision numbers for the inline text</span></span>
+<span id="cb7-490"><a href="#cb7-490" aria-hidden="true" tabindex="-1"></a>  baseline <span class="ot">&lt;-</span> all_data <span class="sc">|&gt;</span></span>
+<span id="cb7-491"><a href="#cb7-491" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(scenario <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-492"><a href="#cb7-492" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb7-493"><a href="#cb7-493" aria-hidden="true" tabindex="-1"></a>      <span class="at">phi_main_se  =</span> <span class="fu">round</span>(<span class="fu">mean</span>(phi_main_sd,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">3</span>),</span>
+<span id="cb7-494"><a href="#cb7-494" aria-hidden="true" tabindex="-1"></a>      <span class="at">psi_down_se  =</span> <span class="fu">round</span>(<span class="fu">mean</span>(psi_down_sd,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">3</span>),</span>
+<span id="cb7-495"><a href="#cb7-495" aria-hidden="true" tabindex="-1"></a>      <span class="at">conv_pct     =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">mean</span>(converged, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb7-496"><a href="#cb7-496" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-497"><a href="#cb7-497" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-498"><a href="#cb7-498" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;</span></span>
+<span id="cb7-499"><a href="#cb7-499" aria-hidden="true" tabindex="-1"></a><span class="st">Based on {baseline$conv_pct}% MCMC convergence and a mean posterior SD of</span></span>
+<span id="cb7-500"><a href="#cb7-500" aria-hidden="true" tabindex="-1"></a><span class="st">**{baseline$phi_main_se}** for mainstem survival and **{baseline$psi_down_se}**</span></span>
+<span id="cb7-501"><a href="#cb7-501" aria-hidden="true" tabindex="-1"></a><span class="st">for downstream emigration probability at the 1,000-fish baseline scenario,</span></span>
+<span id="cb7-502"><a href="#cb7-502" aria-hidden="true" tabindex="-1"></a><span class="st">the following recommendations apply:</span></span>
+<span id="cb7-503"><a href="#cb7-503" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span>))</span>
+<span id="cb7-504"><a href="#cb7-504" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-505"><a href="#cb7-505" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-506"><a href="#cb7-506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-507"><a href="#cb7-507" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-508"><a href="#cb7-508" aria-hidden="true" tabindex="-1"></a>**Minimum recommended tagging effort: 1,000 fish**</span>
+<span id="cb7-509"><a href="#cb7-509" aria-hidden="true" tabindex="-1"></a>: Below this threshold, emigration estimates become unstable due to the small</span>
+<span id="cb7-510"><a href="#cb7-510" aria-hidden="true" tabindex="-1"></a>  number of fish passing antennas. At 11–15% emigration, only 110–150 emigrants</span>
+<span id="cb7-511"><a href="#cb7-511" aria-hidden="true" tabindex="-1"></a>  are expected per 1,000 tagged fish — the lower bound of what the Gembeck/Sager</span>
+<span id="cb7-512"><a href="#cb7-512" aria-hidden="true" tabindex="-1"></a>  double-observer system needs to reliably estimate detection efficiency.</span>
+<span id="cb7-513"><a href="#cb7-513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-514"><a href="#cb7-514" aria-hidden="true" tabindex="-1"></a>**Target tagging effort: 2,000–4,000 fish**</span>
+<span id="cb7-515"><a href="#cb7-515" aria-hidden="true" tabindex="-1"></a>: Achievable within the spring electrofishing + screw trap design (pilot estimate:</span>
+<span id="cb7-516"><a href="#cb7-516" aria-hidden="true" tabindex="-1"></a>  4,000–6,000 fish). This range meaningfully improves precision over the 1,000-fish</span>
+<span id="cb7-517"><a href="#cb7-517" aria-hidden="true" tabindex="-1"></a>  minimum and provides robustness against poor electrofishing years (p_efish ≈ 0.15).</span>
+<span id="cb7-518"><a href="#cb7-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-519"><a href="#cb7-519" aria-hidden="true" tabindex="-1"></a>**Value of pilot detection data**</span>
+<span id="cb7-520"><a href="#cb7-520" aria-hidden="true" tabindex="-1"></a>: Informative priors on detection probabilities (from the 2023–2025 pilot work)</span>
+<span id="cb7-521"><a href="#cb7-521" aria-hidden="true" tabindex="-1"></a>  materially improve estimation of downstream emigration and Gembeck detection</span>
+<span id="cb7-522"><a href="#cb7-522" aria-hidden="true" tabindex="-1"></a>  efficiency. Vague priors produce noticeably</span>
+<span id="cb7-523"><a href="#cb7-523" aria-hidden="true" tabindex="-1"></a>  wider posteriors, particularly when survival is low and few fish are available</span>
+<span id="cb7-524"><a href="#cb7-524" aria-hidden="true" tabindex="-1"></a>  at each antenna.</span>
+<span id="cb7-525"><a href="#cb7-525" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-526"><a href="#cb7-526" aria-hidden="true" tabindex="-1"></a>**Primary study reach: Warm Springs to Gembeck Rd**</span>
+<span id="cb7-527"><a href="#cb7-527" aria-hidden="true" tabindex="-1"></a>: The ~11-mile reach between these two mainstem antennas is appropriately sized</span>
+<span id="cb7-528"><a href="#cb7-528" aria-hidden="true" tabindex="-1"></a>  for boat electrofishing and provides a bounded study area for survival estimation.</span>
+<span id="cb7-529"><a href="#cb7-529" aria-hidden="true" tabindex="-1"></a>  Extension to the Gembeck–Sager section is worthwhile if tagging targets are met,</span>
+<span id="cb7-530"><a href="#cb7-530" aria-hidden="true" tabindex="-1"></a>  but the upper reach should be the analytical priority.</span>
+<span id="cb7-531"><a href="#cb7-531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-532"><a href="#cb7-532" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb7-533"><a href="#cb7-533" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-534"><a href="#cb7-534" aria-hidden="true" tabindex="-1"></a><span class="fu">## Methods Code</span></span>
+<span id="cb7-535"><a href="#cb7-535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-536"><a href="#cb7-536" aria-hidden="true" tabindex="-1"></a>The full simulation and model-fitting code is available in this repository.</span>
+<span id="cb7-537"><a href="#cb7-537" aria-hidden="true" tabindex="-1"></a>Simulation is deterministic given the scenario inputs; results reproduce exactly</span>
+<span id="cb7-538"><a href="#cb7-538" aria-hidden="true" tabindex="-1"></a>with <span class="in">`set.seed(123)`</span>.</span>
+<span id="cb7-539"><a href="#cb7-539" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-542"><a href="#cb7-542" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-543"><a href="#cb7-543" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: show-sim-code</span></span>
+<span id="cb7-544"><a href="#cb7-544" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb7-545"><a href="#cb7-545" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb7-546"><a href="#cb7-546" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb7-547"><a href="#cb7-547" aria-hidden="true" tabindex="-1"></a><span class="co">#| file: power_analysis_CFBrown_loop.R</span></span>
+<span id="cb7-548"><a href="#cb7-548" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-549"><a href="#cb7-549" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-550"><a href="#cb7-550" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb7-551"><a href="#cb7-551" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-552"><a href="#cb7-552" aria-hidden="true" tabindex="-1"></a>*Analysis conducted in R using <span class="in">`jagsUI`</span> for Bayesian MCMC estimation.</span>
+<span id="cb7-553"><a href="#cb7-553" aria-hidden="true" tabindex="-1"></a>Model: <span class="in">`survival_CFBrown.txt`</span>. Rendered with <span class="co">[</span><span class="ot">Quarto</span><span class="co">](https://quarto.org)</span>.*</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

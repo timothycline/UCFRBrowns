@@ -65,7 +65,7 @@ theme_cf <- function() {
 
 ## Overview
 
-This document presents a simulation-based power analysis for a multi-year juvenile
+This document presents a simulation-based power analysis for a juvenile
 brown trout (*Salmo trutta*) survival study on the Upper Clark Fork River, Montana.
 The study uses PIT (Passive Integrated Transponder) tagging combined with stationary
 antenna arrays and electrofishing recapture surveys to estimate reach-specific
@@ -87,7 +87,7 @@ with acceptable precision?*
 
 ### Spatial Layout
 
-The monitoring network spans approximately 22 river miles of the upper Clark Fork,
+The monitoring network spans approximately 20 river miles of the upper Clark Fork,
 anchored by three mainstem PIT antenna arrays and three tributary mouth antennas.
 
 ```{mermaid}
@@ -121,9 +121,8 @@ flowchart TD
 
 ### Antenna Design and Detection Efficiency
 
-All antenna detections are **transition-based**: an antenna fires only when a fish
-physically crosses that boundary. This is a critical design feature — the
-Gembeck + Sager antenna pair constitutes a **double-observer system** for
+All antenna detections are transition-based. The
+Gembeck + Sager antenna pair constitutes a double-observer system for
 downstream emigrants, allowing detection efficiency at Gembeck to be estimated
 from the data rather than assumed.
 
@@ -187,8 +186,7 @@ $$\text{logit}(p) \sim \mathcal{N}(\mu, \sigma^2)$$
 | Informative | $\text{logit}(\hat{p}_\text{pilot})$ | 0.30 |
 | Vague | 0 | 5.00 |
 
-Toggling between prior types requires only a change in the data passed to JAGS —
-the model file itself is unchanged.
+Toggling between prior types requires only a change in the data passed to JAGS.
 
 ### JAGS Model
 
@@ -215,7 +213,7 @@ The power analysis uses a **parametric bootstrap** design:
 5. Summarize bias, precision (posterior SD), and RMSE across replications
 
 Power is assessed by whether the posterior SD is small enough to distinguish
-biologically meaningful differences — not a formal hypothesis test.
+biologically meaningful differences.
 
 ### True Parameter Values
 
@@ -243,12 +241,12 @@ tibble(
     "0.93",  "0.76",  "0.76", "0.25"
   ),
   Source = c(
-    "Colleague email (10–30% annual range)",
+    "Professional judement (10–30% annual range)",
     "Derived from 11–15% total emigration",
     "Professional judgment",
     "Derived from 11–15% total emigration",
     "Low; WS antenna as upstream sentinel",
-    "Expected high for downstream section",
+    "Expected higher for downstream section",
     "Pilot antenna data (2024–2025)",
     "Pilot antenna data (2024–2025)",
     "Assumed equal to Gembeck estimate",
@@ -336,7 +334,7 @@ conv_summary |>
 ### Precision by Sample Size
 
 Posterior standard deviation (SD) measures how precisely each parameter is
-estimated. Smaller SD = tighter credible intervals = more confident conclusions.
+estimated. Smaller SD = tighter credible intervals.
 
 ```{r}
 #| label: fig-precision-ntag
@@ -480,7 +478,6 @@ the following recommendations apply:
 }
 ```
 
-Regardless of simulation outcome, the following structural conclusions hold:
 
 **Minimum recommended tagging effort: 1,000 fish**
 : Below this threshold, emigration estimates become unstable due to the small
@@ -496,7 +493,7 @@ Regardless of simulation outcome, the following structural conclusions hold:
 **Value of pilot detection data**
 : Informative priors on detection probabilities (from the 2023–2025 pilot work)
   materially improve estimation of downstream emigration and Gembeck detection
-  efficiency. The pilot data are load-bearing — vague priors produce noticeably
+  efficiency. Vague priors produce noticeably
   wider posteriors, particularly when survival is low and few fish are available
   at each antenna.
 
